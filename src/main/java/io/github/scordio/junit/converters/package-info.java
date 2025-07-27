@@ -15,8 +15,11 @@
  */
 
 /**
- * Collection of JUnit Jupiter
- * {@link org.junit.jupiter.params.converter.ArgumentConverter} implementations.
+ * Collection of JUnit Jupiter converters for parameterized classes and tests.
+ *
+ * @see org.junit.jupiter.params.converter.ArgumentConverter
+ * @see org.junit.jupiter.params.ParameterizedClass
+ * @see org.junit.jupiter.params.ParameterizedTest
  */
 @NullMarked
 package io.github.scordio.junit.converters;
