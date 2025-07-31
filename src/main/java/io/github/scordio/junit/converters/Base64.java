@@ -25,10 +25,10 @@ import java.lang.annotation.Target;
 import java.util.Base64.Decoder;
 
 /**
- * {@link ConvertWith} composed annotation that decodes {@code String} instances to
- * {@code byte[]} instances using the Base64 encoding scheme.
+ * {@link ConvertWith} composed annotation that decodes Base64-encoded {@link String}
+ * instances to {@code byte[]} instances.
  */
-@Target({ ElementType.ANNOTATION_TYPE, ElementType.PARAMETER, ElementType.FIELD })
+@Target({ ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @ConvertWith(Base64ArgumentConverter.class)

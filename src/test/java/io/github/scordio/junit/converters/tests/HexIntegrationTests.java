@@ -15,9 +15,6 @@
  */
 package io.github.scordio.junit.converters.tests;
 
-import static io.github.scordio.junit.converters.Base64.Encoding.BASIC;
-import static io.github.scordio.junit.converters.Base64.Encoding.MIME;
-import static io.github.scordio.junit.converters.Base64.Encoding.URL;
 import static io.github.scordio.junit.converters.tests.JupiterEngineTestKit.executeTestsForClass;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -26,10 +23,11 @@ import static org.junit.platform.testkit.engine.TestExecutionResultConditions.ca
 import static org.junit.platform.testkit.engine.TestExecutionResultConditions.instanceOf;
 import static org.junit.platform.testkit.engine.TestExecutionResultConditions.message;
 
-import io.github.scordio.junit.converters.Base64;
+import io.github.scordio.junit.converters.Hex;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -38,69 +36,30 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
-class Base64IntegrationTests {
+class HexIntegrationTests {
 
 	@Test
 	void should_convert_supported_values() {
 		executeTestsForClass(SupportedValuesTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(32).succeeded(32));
+			.assertStatistics(stats -> stats.started(4).succeeded(4));
 	}
 
 	static class SupportedValuesTestCase {
 
 		@ParameterizedTest
-		@MethodSource({ "basicArguments", "commonArguments" })
-		void with_default_encoding(@Base64 byte[] bytes, byte[] expected) {
+		@MethodSource("hexArguments")
+		void test(@Hex byte[] bytes, byte[] expected) {
 			assertThat(bytes).isEqualTo(expected);
 		}
 
-		@ParameterizedTest
-		@MethodSource({ "basicArguments", "commonArguments" })
-		void with_basic_encoding(@Base64(encoding = BASIC) byte[] bytes, byte[] expected) {
-			assertThat(bytes).isEqualTo(expected);
-		}
-
-		static Stream<Arguments> basicArguments() {
-			return Stream.of( //
-					arguments("Pz8/", new byte[] { 63, 63, 63 }),
-					arguments("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-							new byte[58]));
-		}
-
-		@ParameterizedTest
-		@MethodSource({ "urlArguments", "commonArguments" })
-		void with_url_encoding(@Base64(encoding = URL) byte[] bytes, byte[] expected) {
-			assertThat(bytes).isEqualTo(expected);
-		}
-
-		static Stream<Arguments> urlArguments() {
-			return Stream.of( //
-					arguments("Pz8_", new byte[] { 63, 63, 63 }),
-					arguments("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-							new byte[58]));
-		}
-
-		@ParameterizedTest
-		@MethodSource({ "mimeArguments", "commonArguments" })
-		void with_mime_encoding(@Base64(encoding = MIME) byte[] bytes, byte[] expected) {
-			assertThat(bytes).isEqualTo(expected);
-		}
-
-		static Stream<Arguments> mimeArguments() {
-			return Stream.of( //
-					arguments("Pz\r\n8/", new byte[] { 63, 63, 63 }),
-					arguments("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\r\nAA==",
-							new byte[58]));
-		}
-
-		static Stream<Arguments> commonArguments() {
+		static Stream<Arguments> hexArguments() {
 			return Stream.of( //
 					arguments("", new byte[0]), //
-					arguments("AA", new byte[1]), //
-					arguments("AA==", new byte[1]), //
-					arguments("AAA", new byte[2]), //
-					arguments("AAA=", new byte[2]), //
-					arguments("AAAA", new byte[3]));
+					arguments("00", new byte[1]), //
+					arguments("1234567890abcdef",
+							new byte[] { 0x12, 0x34, 0x56, 0x78, (byte) 0x90, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF }),
+					arguments("FEDCBA0987654321",
+							new byte[] { (byte) 0xFE, (byte) 0xDC, (byte) 0xBA, 0x09, (byte) 0x87, 0x65, 0x43, 0x21 }));
 		}
 
 	}
@@ -108,25 +67,28 @@ class Base64IntegrationTests {
 	@Test
 	void should_fail_with_unsupported_values() {
 		executeTestsForClass(UnsupportedValuesTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(4).succeeded(0).failed(4))
+			.assertStatistics(stats -> stats.started(6).succeeded(0).failed(6))
 			.assertThatEvents()
+			.haveExactly(3, finishedWithFailure( //
+					instanceOf(ParameterResolutionException.class),
+					cause(instanceOf(ArgumentConversionException.class), message("Hex string must have even length"))))
 			.haveExactly(2, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(IllegalArgumentException.class),
-							message("Input byte[] should at least have 2 bytes for base64 bytes"))))
+					instanceOf(ParameterResolutionException.class), //
+					cause( //
+							instanceOf(ArgumentConversionException.class),
+							message("Invalid hex character at position 0"))))
 			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(IllegalArgumentException.class), message("Illegal base64 character 20"))))
-			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class), cause(instanceOf(IllegalArgumentException.class),
-							message("Last unit does not have enough valid bits"))));
+					instanceOf(ParameterResolutionException.class), //
+					cause( //
+							instanceOf(ArgumentConversionException.class),
+							message("Invalid hex character at position 1"))));
 	}
 
 	static class UnsupportedValuesTestCase {
 
 		@ParameterizedTest
-		@ValueSource(strings = { " ", "  ", "A", "A=" })
-		void test(@SuppressWarnings("unused") @Base64 byte[] bytes) {
+		@ValueSource(strings = { " ", "A", "  ", "AG", "GG", "AAA", })
+		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
 			// never called
 		}
 
@@ -146,7 +108,7 @@ class Base64IntegrationTests {
 
 		@ParameterizedTest
 		@NullSource
-		void test(@SuppressWarnings("unused") @Base64 byte[] bytes) {
+		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
 			// never called
 		}
 
@@ -160,14 +122,14 @@ class Base64IntegrationTests {
 			.assertThatEvents()
 			.haveExactly(1, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
-					message("Error converting parameter at index 0: Base64ArgumentConverter cannot convert objects of type [[B]. Only source objects of type [java.lang.String] are supported.")));
+					message("Error converting parameter at index 0: HexArgumentConverter cannot convert objects of type [[B]. Only source objects of type [java.lang.String] are supported.")));
 	}
 
 	static class EmptySourceTestCase {
 
 		@ParameterizedTest
 		@EmptySource
-		void test(@SuppressWarnings("unused") @Base64 byte[] bytes) {
+		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
 			// never called
 		}
 
