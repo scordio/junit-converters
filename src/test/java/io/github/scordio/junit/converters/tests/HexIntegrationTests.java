@@ -87,7 +87,7 @@ class HexIntegrationTests {
 	static class UnsupportedValuesTestCase {
 
 		@ParameterizedTest
-		@ValueSource(strings = { " ", "A", "  ", "AG", "GG", "AAA", })
+		@ValueSource(strings = { " ", "A", "  ", "AG", "GG", "AAA" })
 		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
 			// never called
 		}
