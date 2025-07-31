@@ -42,6 +42,7 @@ The following converters are available:
 * [`@Base64`](converters/base64.md): decodes Base64 instances into byte arrays
 * [`@Bytes`](converters/bytes.md): converts strings or numbers into byte arrays
 * [`@Hex`](converters/hex.md): decodes hexadecimal strings into byte arrays
+* [`@SpringConversion`](converters/spring-conversion.md): converts instances using the Spring Framework type conversion
 
 Do you have in mind another converter for your use case?
 [:fontawesome-brands-github: Raise an issue!](https://github.com/scordio/junit-converters/issues/new)
