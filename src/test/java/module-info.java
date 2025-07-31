@@ -17,4 +17,5 @@ open module io.github.scordio.junit.converters.tests {
   requires io.github.scordio.junit.converters;
   requires org.assertj.core;
   requires org.junit.jupiter.params;
+  requires org.junit.platform.testkit;
 }
