@@ -40,7 +40,7 @@ class HexArgumentConverter extends TypedArgumentConverter<String, byte[]> {
 		for (int i = 0; i < length; i += 2) {
 			int hi = getDigit(source, i);
 			int lo = getDigit(source, i + 1);
-			bytes[i / 2] = (byte) ((hi << 4) + lo);
+			bytes[i / 2] = (byte) ((hi << 4) | lo);
 		}
 
 		return bytes;
