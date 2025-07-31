@@ -1,7 +1,5 @@
 ---
 description: An argument converter to decode Base64 instances into byte arrays
-hide:
-  - toc
 ---
 
 # `@Base64`

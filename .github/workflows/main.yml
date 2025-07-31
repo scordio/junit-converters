@@ -69,6 +69,26 @@ jobs:
       - name: Test
         run: ./mvnw $MAVEN_ARGS -Psnapshots -Djunit-framework.version=${{ matrix.junit-framework }} verify
 
+  spring-framework:
+
+    name: Spring Framework ${{ matrix.spring-framework }}
+    strategy:
+      fail-fast: false
+      matrix:
+        spring-framework: [6.2.12, 7.0.0-RC3]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Set up Java
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        with:
+          java-version: '25'
+          distribution: 'zulu'
+          cache: maven
+      - name: Test
+        run: ./mvnw $MAVEN_ARGS -Dspring-framework.version=${{ matrix.spring-framework }} verify
+
   javadoc:
 
     name: Javadoc

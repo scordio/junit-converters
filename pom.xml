@@ -37,6 +37,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Dependency versions -->
     <junit-framework.version>5.14.0</junit-framework.version>
+    <spring-framework.version>5.3.39</spring-framework.version>
   </properties>
 
   <dependencyManagement>
@@ -61,6 +62,13 @@
       <groupId>org.jspecify</groupId>
       <artifactId>jspecify</artifactId>
       <version>1.0.0</version>
+    </dependency>
+    <!-- Optional -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring-framework.version}</version>
+      <optional>true</optional>
     </dependency>
     <!-- Provided -->
     <dependency>
@@ -228,6 +236,31 @@
               </excludes>
               <failOnWarning>false</failOnWarning> <!-- https://github.com/jspecify/jspecify/issues/302 -->
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.6.2</version>
+        <configuration>
+          <rules>
+            <bannedDependencies>
+              <includes>
+                <include>org.jspecify:jspecify</include>
+              </includes>
+              <excludes>
+                <exclude>*:*:*:jar:compile</exclude>
+              </excludes>
+            </bannedDependencies>
+            <dependencyConvergence/>
+          </rules>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

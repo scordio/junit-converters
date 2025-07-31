@@ -13,25 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.github.scordio;
 
-/**
- * Collection of {@link org.junit.jupiter.params.converter.ArgumentConverter argument
- * converters} for JUnit parameterized testing.
- *
- * @see org.junit.jupiter.params.ParameterizedClass
- * @see org.junit.jupiter.params.ParameterizedTest
- */
-@SuppressWarnings("requires-automatic")
-module io.github.scordio.junit.converters {
+// --8<-- [start:import]
+import io.github.scordio.junit.converters.SpringConversion;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+// --8<-- [end:import]
 
-	requires static transitive org.jspecify;
+import java.util.List;
 
-	requires static spring.core;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-	requires org.junit.jupiter.params;
+class SpringConversionDemo {
 
-	exports io.github.scordio.junit.converters;
+// @formatter:off
+// --8<-- [start:test]
 
-	opens io.github.scordio.junit.converters to org.junit.platform.commons;
+@ParameterizedTest
+@ValueSource(strings = "123, 456")
+void test(@SpringConversion List<Integer> ints) {
+	assertEquals(List.of(123, 456), ints);
+}
+// --8<-- [end:test]
+// @formatter:on
 
 }
