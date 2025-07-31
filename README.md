@@ -8,7 +8,7 @@ for parameterized classes and tests.
 
 | Annotation           | Description                                                       |
 |----------------------|-------------------------------------------------------------------|
-| [`@Base64`](#base64) | Decodes Base64-encoded `String` instances into `byte[]` instances |
+| [`@Base64`](#base64) | Decodes Base64 encoded `String` instances into `byte[]` instances |
 | [`@Hex`](#hex)       | Decodes hexadecimal `String` instances into `byte[]` instances    |
 
 ## Getting Started
@@ -36,7 +36,7 @@ testImplementation("io.github.scordio:junit-converters:${junitConvertersVersion}
 
 ## @Base64
 
-`@Base64` decodes `String` instances into `byte[]` instances using the [Base64][] encoding scheme.
+`@Base64` decodes [Base64][] encoded `String` instances into `byte[]` instances.
 
 The annotation's `encoding` attribute configures the desired encoding scheme, following [RFC 4648][] and [RFC 2045][]:
 
