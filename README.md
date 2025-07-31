@@ -45,11 +45,11 @@ following [RFC 4648][] and [RFC 2045][]:
 * `URL`: for the _URL and Filename Safe_ encoding scheme
 * `MIME`: for the _MIME_ encoding scheme
 
-| Source Type | Target Declaration                                                 | Example                                                            |
-|-------------|--------------------------------------------------------------------|--------------------------------------------------------------------|
-| `String`    | `@Base64 byte[] bytes` or `@Base64(encoding = BASIC) byte[] bytes` | `"PDw/Pz8+Pg=="` → `new byte[] { 60, 60, 63, 63, 63, 62, 62 }`     |
-| `String`    | `@Base64(encoding = URL) byte[] bytes`                             | `"PDw_Pz8-Pg"` → `new byte[] { 60, 60, 63, 63, 63, 62, 62 }`       |
-| `String`    | `@Base64(encoding = MIME) byte[] bytes`                            | `"PDw/Pz8+\r\nPg=="` → `new byte[] { 60, 60, 63, 63, 63, 62, 62 }` |
+| Source Type | Target Declaration                                                 | Example                                    |
+|-------------|--------------------------------------------------------------------|--------------------------------------------|
+| `String`    | `@Base64 byte[] bytes` or `@Base64(encoding = BASIC) byte[] bytes` | `"Pz8/"` → `new byte[] { 63, 63, 63 }`     |
+| `String`    | `@Base64(encoding = URL) byte[] bytes`                             | `"Pz8_"` → `new byte[] { 63, 63, 63 }`     |
+| `String`    | `@Base64(encoding = MIME) byte[] bytes`                            | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }` |
 
 ## License
 

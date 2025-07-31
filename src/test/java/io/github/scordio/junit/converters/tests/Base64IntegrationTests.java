@@ -61,7 +61,7 @@ class Base64IntegrationTests {
 
 		static Stream<Arguments> basicArguments() {
 			return Stream.of( //
-					arguments("PDw/Pz8+Pg==", new byte[] { 60, 60, 63, 63, 63, 62, 62 }),
+					arguments("Pz8/", new byte[] { 63, 63, 63 }),
 					arguments("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
 							new byte[58]));
 		}
@@ -74,7 +74,7 @@ class Base64IntegrationTests {
 
 		static Stream<Arguments> urlArguments() {
 			return Stream.of( //
-					arguments("PDw_Pz8-Pg", new byte[] { 60, 60, 63, 63, 63, 62, 62 }),
+					arguments("Pz8_", new byte[] { 63, 63, 63 }),
 					arguments("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
 							new byte[58]));
 		}
@@ -87,7 +87,7 @@ class Base64IntegrationTests {
 
 		static Stream<Arguments> mimeArguments() {
 			return Stream.of( //
-					arguments("PDw/Pz8+\r\nPg==", new byte[] { 60, 60, 63, 63, 63, 62, 62 }),
+					arguments("Pz\r\n8/", new byte[] { 63, 63, 63 }),
 					arguments("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\r\nAA==",
 							new byte[58]));
 		}
