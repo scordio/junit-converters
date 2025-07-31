@@ -44,11 +44,11 @@ The annotation's `encoding` attribute configures the desired encoding scheme, fo
 * `URL`: for the _URL and Filename Safe_ encoding scheme
 * `MIME`: for the _MIME_ encoding scheme
 
-| Source Type | Target Declaration                                                 | Example                                    |
-|-------------|--------------------------------------------------------------------|--------------------------------------------|
-| `String`    | `@Base64 byte[] bytes` or `@Base64(encoding = BASIC) byte[] bytes` | `"Pz8/"` → `new byte[] { 63, 63, 63 }`     |
-| `String`    | `@Base64(encoding = URL) byte[] bytes`                             | `"Pz8_"` → `new byte[] { 63, 63, 63 }`     |
-| `String`    | `@Base64(encoding = MIME) byte[] bytes`                            | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }` |
+| Source Type | Target Declaration                      | Example                                    |
+|-------------|-----------------------------------------|--------------------------------------------|
+| `String`    | `@Base64 byte[] bytes`                  | `"Pz8/"` → `new byte[] { 63, 63, 63 }`     |
+| `String`    | `@Base64(encoding = URL) byte[] bytes`  | `"Pz8_"` → `new byte[] { 63, 63, 63 }`     |
+| `String`    | `@Base64(encoding = MIME) byte[] bytes` | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }` |
 
 ## @Hex
 
