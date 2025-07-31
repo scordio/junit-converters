@@ -8,8 +8,8 @@ for parameterized classes and tests.
 
 | Annotation           | Description                                                       |
 |----------------------|-------------------------------------------------------------------|
-| [`@Base64`](#Base64) | Decodes Base64-encoded `String` instances into `byte[]` instances |
-| [`@Hex`](#Hex)       | Decodes hexadecimal `String` instances into `byte[]` instances    |
+| [`@Base64`](#base64) | Decodes Base64-encoded `String` instances into `byte[]` instances |
+| [`@Hex`](#hex)       | Decodes hexadecimal `String` instances into `byte[]` instances    |
 
 ## Getting Started
 
