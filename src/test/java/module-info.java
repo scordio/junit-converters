@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+@SuppressWarnings("requires-automatic")
 open module io.github.scordio.tests.junit.converters {
 
 	requires io.github.scordio.junit.converters;
 	requires org.assertj.core;
 	requires org.junit.jupiter.params;
 	requires org.junit.platform.testkit;
+    requires spring.core;
 
 }
