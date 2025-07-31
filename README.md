@@ -6,9 +6,10 @@ This project provides a collection of [JUnit Jupiter][]
 [converters](https://docs.junit.org/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit)
 for parameterized classes and tests.
 
-| Annotation            | Description                                                       |
-|-----------------------|-------------------------------------------------------------------|
-| [`@Base64`](#@Base64) | Decodes Base64-encoded `String` instances into `byte[]` instances |
+| Annotation           | Description                                                       |
+|----------------------|-------------------------------------------------------------------|
+| [`@Base64`](#base64) | Decodes Base64-encoded `String` instances into `byte[]` instances |
+| [`@Hex`](#hex)       | Decodes hexadecimal `String` instances into `byte[]` instances    |
 
 ## Getting Started
 
@@ -35,21 +36,27 @@ testImplementation("io.github.scordio:junit-converters:${junitConvertersVersion}
 
 ## @Base64
 
-`@Base64` is a JUnit composed annotation that decodes `String` instances into `byte[]` instances using the [Base64][]
-encoding scheme.
+`@Base64` decodes `String` instances into `byte[]` instances using the [Base64][] encoding scheme.
 
-The annotation provides an optional `encoding` attribute to configure the desired encoding scheme,
-following [RFC 4648][] and [RFC 2045][]:
+The annotation's `encoding` attribute configures the desired encoding scheme, following [RFC 4648][] and [RFC 2045][]:
 
 * `BASIC`: for the _Basic_ encoding scheme (default)
 * `URL`: for the _URL and Filename Safe_ encoding scheme
 * `MIME`: for the _MIME_ encoding scheme
 
-| Source Type | Target Declaration                                                 | Example                                    |
-|-------------|--------------------------------------------------------------------|--------------------------------------------|
-| `String`    | `@Base64 byte[] bytes` or `@Base64(encoding = BASIC) byte[] bytes` | `"Pz8/"` → `new byte[] { 63, 63, 63 }`     |
-| `String`    | `@Base64(encoding = URL) byte[] bytes`                             | `"Pz8_"` → `new byte[] { 63, 63, 63 }`     |
-| `String`    | `@Base64(encoding = MIME) byte[] bytes`                            | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }` |
+| Source Type | Target Declaration                      | Example                                    |
+|-------------|-----------------------------------------|--------------------------------------------|
+| `String`    | `@Base64 byte[] bytes`                  | `"Pz8/"` → `new byte[] { 63, 63, 63 }`     |
+| `String`    | `@Base64(encoding = URL) byte[] bytes`  | `"Pz8_"` → `new byte[] { 63, 63, 63 }`     |
+| `String`    | `@Base64(encoding = MIME) byte[] bytes` | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }` |
+
+## @Hex
+
+`@Hex` decodes [hexadecimal][] `String` instances into `byte[]` instances.
+
+| Source Type | Target Declaration  | Example                                              |
+|-------------|---------------------|------------------------------------------------------|
+| `String`    | `@Hex byte[] bytes` | `"0A1B2C"` → `new byte[] { 0x0A, 0x1B, 0x2C }`       |
 
 ## License
 
@@ -57,6 +64,7 @@ JUnit Converters is released under version 2.0 of the [Apache License][].
 
 [Apache License]: https://www.apache.org/licenses/LICENSE-2.0
 [Base64]: https://en.wikipedia.org/wiki/Base64
+[hexadecimal]: https://en.wikipedia.org/wiki/Hexadecimal
 [JUnit Jupiter]: https://github.com/junit-team/junit5
 [RFC 2045]: http://www.ietf.org/rfc/rfc2045.txt
 [RFC 4648]: http://www.ietf.org/rfc/rfc4648.txt
