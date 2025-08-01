@@ -69,6 +69,6 @@ JUnit Converters is released under version 2.0 of the [Apache License][].
 [Apache License]: https://www.apache.org/licenses/LICENSE-2.0
 [Base64]: https://en.wikipedia.org/wiki/Base64
 [hexadecimal]: https://en.wikipedia.org/wiki/Hexadecimal
-[JUnit Jupiter]: https://github.com/junit-team/junit5
+[JUnit Jupiter]: https://github.com/junit-team/junit-framework
 [RFC 2045]: http://www.ietf.org/rfc/rfc2045.txt
 [RFC 4648]: http://www.ietf.org/rfc/rfc4648.txt
