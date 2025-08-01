@@ -108,8 +108,11 @@ class Base64IntegrationTests {
 	@Test
 	void should_fail_with_unsupported_values() {
 		executeTestsForClass(UnsupportedValuesTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(4).succeeded(0).failed(4))
+			.assertStatistics(stats -> stats.started(5).succeeded(0).failed(5))
 			.assertThatEvents()
+			.haveExactly(1, finishedWithFailure( //
+					instanceOf(ParameterResolutionException.class),
+					cause(instanceOf(NullPointerException.class), message("'null' is unsupported"))))
 			.haveExactly(2, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
 					cause(instanceOf(IllegalArgumentException.class),
@@ -125,27 +128,8 @@ class Base64IntegrationTests {
 	static class UnsupportedValuesTestCase {
 
 		@ParameterizedTest
-		@ValueSource(strings = { " ", "  ", "A", "A=" })
-		void test(@SuppressWarnings("unused") @Base64 byte[] bytes) {
-			// never called
-		}
-
-	}
-
-	@Test
-	void should_fail_with_NullSource() {
-		executeTestsForClass(NullSourceTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(1).succeeded(0).failed(1))
-			.assertThatEvents()
-			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(NullPointerException.class), message("'null' is unsupported"))));
-	}
-
-	static class NullSourceTestCase {
-
-		@ParameterizedTest
 		@NullSource
+		@ValueSource(strings = { " ", "  ", "A", "A=" })
 		void test(@SuppressWarnings("unused") @Base64 byte[] bytes) {
 			// never called
 		}

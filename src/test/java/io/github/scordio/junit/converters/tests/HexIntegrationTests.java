@@ -67,8 +67,11 @@ class HexIntegrationTests {
 	@Test
 	void should_fail_with_unsupported_values() {
 		executeTestsForClass(UnsupportedValuesTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(6).succeeded(0).failed(6))
+			.assertStatistics(stats -> stats.started(7).succeeded(0).failed(7))
 			.assertThatEvents()
+			.haveExactly(1, finishedWithFailure( //
+					instanceOf(ParameterResolutionException.class),
+					cause(instanceOf(NullPointerException.class), message("'null' is unsupported"))))
 			.haveExactly(3, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
 					cause(instanceOf(ArgumentConversionException.class), message("Hex string must have even length"))))
@@ -87,27 +90,8 @@ class HexIntegrationTests {
 	static class UnsupportedValuesTestCase {
 
 		@ParameterizedTest
-		@ValueSource(strings = { " ", "A", "  ", "AG", "GG", "AAA" })
-		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
-			// never called
-		}
-
-	}
-
-	@Test
-	void should_fail_with_NullSource() {
-		executeTestsForClass(NullSourceTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(1).succeeded(0).failed(1))
-			.assertThatEvents()
-			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(NullPointerException.class), message("'null' is unsupported"))));
-	}
-
-	static class NullSourceTestCase {
-
-		@ParameterizedTest
 		@NullSource
+		@ValueSource(strings = { " ", "A", "  ", "AG", "GG", "AAA" })
 		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
 			// never called
 		}
