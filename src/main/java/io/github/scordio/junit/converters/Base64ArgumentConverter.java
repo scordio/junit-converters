@@ -16,30 +16,31 @@
 package io.github.scordio.junit.converters;
 
 import org.jspecify.annotations.Nullable;
+import org.junit.jupiter.params.converter.AnnotationBasedArgumentConverter;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
-import org.junit.jupiter.params.converter.TypedArgumentConverter;
-import org.junit.jupiter.params.support.AnnotationConsumer;
 
 import java.util.Objects;
 
-class Base64ArgumentConverter extends TypedArgumentConverter<String, byte[]> implements AnnotationConsumer<Base64> {
-
-	private @Nullable Base64 annotation;
-
-	Base64ArgumentConverter() {
-		super(String.class, byte[].class);
-	}
+class Base64ArgumentConverter extends AnnotationBasedArgumentConverter<Base64> {
 
 	@Override
-	public void accept(Base64 annotation) {
-		this.annotation = annotation;
-	}
+	protected @Nullable Object convert(@Nullable Object source, Class<?> targetType, Base64 annotation) {
+		Objects.requireNonNull(source, "'null' is not supported");
 
-	@SuppressWarnings({ "DataFlowIssue", "NullAway" })
-	@Override
-	protected byte[] convert(@Nullable String source) {
-		Objects.requireNonNull(source, "'null' is unsupported");
-		return annotation.encoding().getDecoder().decode(source);
+		if (targetType != byte[].class) {
+			throw new ArgumentConversionException(
+					String.format("Target type %s is not supported", targetType.getTypeName()));
+		}
+
+		if (source instanceof byte[]) {
+			return annotation.encoding().getDecoder().decode((byte[]) source);
+		}
+		else if (source instanceof String) {
+			return annotation.encoding().getDecoder().decode((String) source);
+		}
+
+		throw new ArgumentConversionException(
+				String.format("Source type %s is not supported", source.getClass().getTypeName()));
 	}
 
 }

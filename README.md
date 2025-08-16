@@ -46,11 +46,14 @@ The annotation's `encoding` attribute configures the desired encoding scheme, fo
 
 The following source types and target declarations are supported.
 
-| Source Type | Target Declaration                | Example                                    |
-|-------------|-----------------------------------|--------------------------------------------|
-| `String`    | `@Base64 byte[]`                  | `"Pz8/"` → `new byte[] { 63, 63, 63 }`     |
-| `String`    | `@Base64(encoding = URL) byte[]`  | `"Pz8_"` → `new byte[] { 63, 63, 63 }`     |
-| `String`    | `@Base64(encoding = MIME) byte[]` | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }` |
+| Source Type | Target Declaration                | Example                                                                |
+|-------------|-----------------------------------|------------------------------------------------------------------------|
+| `byte[]`    | `@Base64 byte[]`                  | `new byte[] { 80, 122, 56, 47 }` → `new byte[] { 63, 63, 63 }`         |
+| `byte[]`    | `@Base64(encoding = URL) byte[]`  | `new byte[] { 80, 122, 56, 95 }` → `new byte[] { 63, 63, 63 }`         |
+| `byte[]`    | `@Base64(encoding = MIME) byte[]` | `new byte[] { 80, 122, 13, 10, 56, 47 }` → `new byte[] { 63, 63, 63 }` |
+| `String`    | `@Base64 byte[]`                  | `"Pz8/"` → `new byte[] { 63, 63, 63 }`                                 |
+| `String`    | `@Base64(encoding = URL) byte[]`  | `"Pz8_"` → `new byte[] { 63, 63, 63 }`                                 |
+| `String`    | `@Base64(encoding = MIME) byte[]` | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }`                             |
 
 ## @Hex
 
