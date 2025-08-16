@@ -46,11 +46,11 @@ The annotation's `encoding` attribute configures the desired encoding scheme, fo
 
 The following source types and target declarations are supported.
 
-| Source Type | Target Declaration                      | Example                                    |
-|-------------|-----------------------------------------|--------------------------------------------|
-| `String`    | `@Base64 byte[] bytes`                  | `"Pz8/"` → `new byte[] { 63, 63, 63 }`     |
-| `String`    | `@Base64(encoding = URL) byte[] bytes`  | `"Pz8_"` → `new byte[] { 63, 63, 63 }`     |
-| `String`    | `@Base64(encoding = MIME) byte[] bytes` | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }` |
+| Source Type | Target Declaration                | Example                                    |
+|-------------|-----------------------------------|--------------------------------------------|
+| `String`    | `@Base64 byte[]`                  | `"Pz8/"` → `new byte[] { 63, 63, 63 }`     |
+| `String`    | `@Base64(encoding = URL) byte[]`  | `"Pz8_"` → `new byte[] { 63, 63, 63 }`     |
+| `String`    | `@Base64(encoding = MIME) byte[]` | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }` |
 
 ## @Hex
 
@@ -58,9 +58,9 @@ The following source types and target declarations are supported.
 
 The following source types and target declarations are supported.
 
-| Source Type | Target Declaration  | Example                                              |
-|-------------|---------------------|------------------------------------------------------|
-| `String`    | `@Hex byte[] bytes` | `"0A1B2C"` → `new byte[] { 0x0A, 0x1B, 0x2C }`       |
+| Source Type | Target Declaration | Example                                        |
+|-------------|--------------------|------------------------------------------------|
+| `String`    | `@Hex byte[]`      | `"0A1B2C"` → `new byte[] { 0x0A, 0x1B, 0x2C }` |
 
 ## License
 
