@@ -36,7 +36,7 @@ testImplementation("io.github.scordio:junit-converters:${junitConvertersVersion}
 
 ## @Base64
 
-`@Base64` decodes [Base64][] encoded `byte[]` or `String` instances into `byte[]` instances.
+`@Base64` decodes [Base64][] encoded instances of type `byte[]` or `String` into `byte[]` instances.
 
 The annotation's `encoding` attribute configures the desired encoding scheme, following [RFC 4648][] and [RFC 2045][]:
 
