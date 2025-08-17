@@ -29,7 +29,7 @@ class HexArgumentConverter extends TypedArgumentConverter<String, byte[]> {
 
 	@Override
 	protected byte[] convert(@Nullable String source) throws ArgumentConversionException {
-		Objects.requireNonNull(source, "'null' is unsupported");
+		Objects.requireNonNull(source, "'null' is not supported");
 
 		int length = source.length();
 		if (length % 2 != 0) {

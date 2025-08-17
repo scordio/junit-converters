@@ -71,7 +71,7 @@ class HexIntegrationTests {
 			.assertThatEvents()
 			.haveExactly(1, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(NullPointerException.class), message("'null' is unsupported"))))
+					cause(instanceOf(NullPointerException.class), message("'null' is not supported"))))
 			.haveExactly(3, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
 					cause(instanceOf(ArgumentConversionException.class), message("Hex string must have even length"))))
