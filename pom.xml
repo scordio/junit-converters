@@ -57,6 +57,13 @@
       <artifactId>jspecify</artifactId>
       <version>1.0.0</version>
     </dependency>
+    <!-- Optional -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>5.3.39</version>
+      <optional>true</optional>
+    </dependency>
     <!-- Provided -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
