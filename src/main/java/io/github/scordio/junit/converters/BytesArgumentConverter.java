@@ -19,12 +19,13 @@ import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.params.converter.AnnotationBasedArgumentConverter;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
 
+import java.nio.charset.Charset;
 import java.util.Objects;
 
-class Base64ArgumentConverter extends AnnotationBasedArgumentConverter<Base64> {
+class BytesArgumentConverter extends AnnotationBasedArgumentConverter<Bytes> {
 
 	@Override
-	protected Object convert(@Nullable Object source, Class<?> targetType, Base64 annotation) {
+	protected Object convert(@Nullable Object source, Class<?> targetType, Bytes annotation) {
 		Objects.requireNonNull(source, "'null' is not supported");
 
 		if (targetType != byte[].class) {
@@ -32,15 +33,16 @@ class Base64ArgumentConverter extends AnnotationBasedArgumentConverter<Base64> {
 					String.format("Target type %s is not supported", targetType.getTypeName()));
 		}
 
-		if (source instanceof byte[]) {
-			return annotation.encoding().getDecoder().decode((byte[]) source);
-		}
-		else if (source instanceof String) {
-			return annotation.encoding().getDecoder().decode((String) source);
+		if (source instanceof String) {
+			return ((String) source).getBytes(forName(annotation.charset()));
 		}
 
 		throw new ArgumentConversionException(
 				String.format("Source type %s is not supported", source.getClass().getTypeName()));
+	}
+
+	private static Charset forName(String charsetName) {
+		return charsetName.isEmpty() ? Charset.defaultCharset() : Charset.forName(charsetName);
 	}
 
 }
