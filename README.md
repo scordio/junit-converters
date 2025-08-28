@@ -9,6 +9,7 @@ for parameterized classes and tests.
 | Annotation           | Description                                                    |
 |----------------------|----------------------------------------------------------------|
 | [`@Base64`](#base64) | Decodes Base64 encoded instances into `byte[]` instances       |
+| [`@Bytes`](#bytes)   | Converts `String` instances into `byte[]` instances            |
 | [`@Hex`](#hex)       | Decodes hexadecimal `String` instances into `byte[]` instances |
 
 ## Getting Started
@@ -54,6 +55,20 @@ The following source types and target declarations are supported.
 | `String`    | `@Base64 byte[]`                  | `"Pz8/"` → `new byte[] { 63, 63, 63 }`                                 |
 | `String`    | `@Base64(encoding = URL) byte[]`  | `"Pz8_"` → `new byte[] { 63, 63, 63 }`                                 |
 | `String`    | `@Base64(encoding = MIME) byte[]` | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }`                             |
+
+## @Bytes
+
+`@Bytes` converts `String` instances into `byte[]` instances.
+
+The annotation's `charset` attribute configures the charset to use for conversion.
+When not specified, the JVM default charset is used.
+
+The following source types and target declarations are supported.
+
+| Source Type | Target Declaration                 | Example                           |
+|-------------|------------------------------------|-----------------------------------|
+| `String`    | `@Bytes byte[]`                    | `"a"` → `new byte[] { 97 }`       |
+| `String`    | `@Bytes(charset = "UTF-8") byte[]` | `"ä"` → `new byte[] { -61, -92 }` |
 
 ## @Hex
 
