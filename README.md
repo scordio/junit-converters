@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/scordio/junit-converters/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/scordio/junit-converters/actions/workflows/main.yml?query=branch%3Amain)
 
-This project provides a collection of [JUnit Jupiter][]
+This project provides a collection of [JUnit Framework](https://junit.org/)
 [converters](https://docs.junit.org/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit)
 for parameterized classes and tests.
 
@@ -16,7 +16,7 @@ for parameterized classes and tests.
 
 ### Compatibility
 
-JUnit Converters is based on JUnit Jupiter 5 and requires Java 8 or higher.
+JUnit Converters is based on JUnit Framework 5 and requires Java 8 or higher.
 
 ### Maven
 
@@ -82,11 +82,9 @@ The following source types and target declarations are supported.
 
 ## License
 
-JUnit Converters is released under version 2.0 of the [Apache License][].
+JUnit Converters is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
-[Apache License]: https://www.apache.org/licenses/LICENSE-2.0
 [Base64]: https://en.wikipedia.org/wiki/Base64
 [hexadecimal]: https://en.wikipedia.org/wiki/Hexadecimal
-[JUnit Jupiter]: https://github.com/junit-team/junit-framework
 [RFC 2045]: http://www.ietf.org/rfc/rfc2045.txt
 [RFC 4648]: http://www.ietf.org/rfc/rfc4648.txt

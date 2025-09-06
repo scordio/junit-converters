@@ -15,7 +15,7 @@
  */
 
 /**
- * Collection of JUnit Jupiter converters for parameterized classes and tests.
+ * Collection of JUnit Framework converters for parameterized classes and tests.
  *
  * @see org.junit.jupiter.params.converter.ArgumentConverter
  * @see org.junit.jupiter.params.ParameterizedClass

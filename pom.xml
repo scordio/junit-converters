@@ -7,7 +7,7 @@
   <version>0.1.0-SNAPSHOT</version>
 
   <name>JUnit Converters</name>
-  <description>Collection of JUnit Jupiter converters for parameterized classes and tests</description>
+  <description>Collection of JUnit Framework converters for parameterized classes and tests</description>
   <url>https://github.com/scordio/junit-converters</url>
   <inceptionYear>2025</inceptionYear>
   <licenses>
@@ -36,7 +36,7 @@
     <maven.compiler.testRelease>21</maven.compiler.testRelease>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Dependency versions -->
-    <junit-jupiter.version>5.13.4</junit-jupiter.version>
+    <junit-framework.version>5.13.4</junit-framework.version>
   </properties>
 
   <dependencyManagement>
@@ -44,7 +44,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>${junit-jupiter.version}</version>
+        <version>${junit-framework.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -135,7 +135,7 @@
             <additionalOptions>--link-modularity-mismatch=info</additionalOptions> <!-- https://github.com/jspecify/jspecify/issues/712 -->
             <failOnWarnings>true</failOnWarnings>
             <links>
-              <link>https://docs.junit.org/${junit-jupiter.version}/api/</link>
+              <link>https://docs.junit.org/${junit-framework.version}/api/</link>
               <link>https://jspecify.dev/docs/api/</link>
             </links>
             <release>9</release>
