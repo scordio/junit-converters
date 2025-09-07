@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.scordio.junit.converters.tests;
+package io.github.scordio.tests.junit.converters;
 
-import static io.github.scordio.junit.converters.tests.JupiterEngineTestKit.executeTestsForClass;
+import static io.github.scordio.tests.junit.converters.JupiterEngineTestKit.executeTestsForClass;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.junit.platform.testkit.engine.EventConditions.finishedWithFailure;

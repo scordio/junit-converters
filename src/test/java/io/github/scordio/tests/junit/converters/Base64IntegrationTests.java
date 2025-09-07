@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.scordio.junit.converters.tests;
+package io.github.scordio.tests.junit.converters;
 
 import static io.github.scordio.junit.converters.Base64.Encoding.BASIC;
 import static io.github.scordio.junit.converters.Base64.Encoding.MIME;
 import static io.github.scordio.junit.converters.Base64.Encoding.URL;
-import static io.github.scordio.junit.converters.tests.JupiterEngineTestKit.executeTestsForClass;
+import static io.github.scordio.tests.junit.converters.JupiterEngineTestKit.executeTestsForClass;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;

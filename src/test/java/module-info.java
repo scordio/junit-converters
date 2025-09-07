@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-open module io.github.scordio.junit.converters.tests {
-  requires io.github.scordio.junit.converters;
-  requires org.assertj.core;
-  requires org.junit.jupiter.params;
-  requires org.junit.platform.testkit;
+open module io.github.scordio.tests.junit.converters {
+	requires io.github.scordio.junit.converters;
+	requires org.assertj.core;
+	requires org.junit.jupiter.params;
+	requires org.junit.platform.testkit;
 }

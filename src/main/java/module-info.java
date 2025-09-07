@@ -22,10 +22,10 @@
  * @see org.junit.jupiter.params.ParameterizedTest
  */
 module io.github.scordio.junit.converters {
-  requires static org.jspecify;
-  requires org.junit.jupiter.params;
+	requires static org.jspecify;
+	requires org.junit.jupiter.params;
 
-  exports io.github.scordio.junit.converters;
+	exports io.github.scordio.junit.converters;
 
-  opens io.github.scordio.junit.converters to org.junit.platform.commons;
+	opens io.github.scordio.junit.converters to org.junit.platform.commons;
 }
