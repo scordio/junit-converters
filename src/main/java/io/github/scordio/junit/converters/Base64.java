@@ -55,44 +55,27 @@ public @interface Base64 {
 		 *
 		 * @see java.util.Base64#getDecoder()
 		 */
-		BASIC {
-
-			@Override
-			Decoder getDecoder() {
-				return java.util.Base64.getDecoder();
-			}
-
-		},
+		BASIC(java.util.Base64.getDecoder()),
 
 		/**
 		 * The URL and Filename Safe encoding scheme.
 		 *
 		 * @see java.util.Base64#getUrlDecoder()
 		 */
-		URL {
-
-			@Override
-			Decoder getDecoder() {
-				return java.util.Base64.getUrlDecoder();
-			}
-
-		},
+		URL(java.util.Base64.getUrlDecoder()),
 
 		/**
 		 * The MIME encoding scheme.
 		 *
 		 * @see java.util.Base64#getMimeDecoder()
 		 */
-		MIME {
+		MIME(java.util.Base64.getMimeDecoder());
 
-			@Override
-			Decoder getDecoder() {
-				return java.util.Base64.getMimeDecoder();
-			}
+		final Decoder decoder;
 
-		};
-
-		abstract Decoder getDecoder();
+		Encoding(Decoder decoder) {
+			this.decoder = decoder;
+		}
 
 	}
 
