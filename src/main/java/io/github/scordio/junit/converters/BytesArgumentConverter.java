@@ -19,6 +19,8 @@ import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.params.converter.AnnotationBasedArgumentConverter;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
@@ -36,6 +38,24 @@ class BytesArgumentConverter extends AnnotationBasedArgumentConverter<Bytes> {
 		if (source instanceof String) {
 			return ((String) source).getBytes(forName(annotation.charset()));
 		}
+		if (source instanceof Byte) {
+			return ByteBuffer.allocate(Byte.BYTES).order(getOrder(annotation)).put((byte) source).array();
+		}
+		if (source instanceof Short) {
+			return ByteBuffer.allocate(Short.BYTES).order(getOrder(annotation)).putShort((short) source).array();
+		}
+		if (source instanceof Integer) {
+			return ByteBuffer.allocate(Integer.BYTES).order(getOrder(annotation)).putInt((int) source).array();
+		}
+		if (source instanceof Long) {
+			return ByteBuffer.allocate(Long.BYTES).order(getOrder(annotation)).putLong((long) source).array();
+		}
+		if (source instanceof Float) {
+			return ByteBuffer.allocate(Float.BYTES).order(getOrder(annotation)).putFloat((float) source).array();
+		}
+		if (source instanceof Double) {
+			return ByteBuffer.allocate(Double.BYTES).order(getOrder(annotation)).putDouble((double) source).array();
+		}
 
 		throw new ArgumentConversionException(
 				String.format("Source type %s is not supported", source.getClass().getTypeName()));
@@ -43,6 +63,10 @@ class BytesArgumentConverter extends AnnotationBasedArgumentConverter<Bytes> {
 
 	private static Charset forName(String charsetName) {
 		return charsetName.isEmpty() ? Charset.defaultCharset() : Charset.forName(charsetName);
+	}
+
+	private static ByteOrder getOrder(Bytes annotation) {
+		return annotation.order().nioOrder;
 	}
 
 }
