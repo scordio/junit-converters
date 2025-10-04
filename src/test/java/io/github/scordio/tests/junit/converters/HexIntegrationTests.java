@@ -67,11 +67,14 @@ class HexIntegrationTests {
 	@Test
 	void should_fail_with_unsupported_values() {
 		executeTestsForClass(UnsupportedValuesTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(7).succeeded(0).failed(7))
+			.assertStatistics(stats -> stats.started(8).failed(8))
 			.assertThatEvents()
 			.haveExactly(1, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
 					cause(instanceOf(NullPointerException.class), message("'null' is not supported"))))
+			.haveExactly(1, finishedWithFailure( // https://github.com/junit-team/junit-framework/issues/4801
+					instanceOf(ParameterResolutionException.class),
+					message("Error converting parameter at index 0: HexArgumentConverter cannot convert objects of type [[B]. Only source objects of type [java.lang.String] are supported.")))
 			.haveExactly(3, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
 					cause(instanceOf(ArgumentConversionException.class), message("Hex string must have even length"))))
@@ -91,28 +94,8 @@ class HexIntegrationTests {
 
 		@ParameterizedTest
 		@NullSource
+		@EmptySource // https://github.com/junit-team/junit-framework/issues/4801
 		@ValueSource(strings = { " ", "A", "  ", "AG", "GG", "AAA" })
-		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
-			// never called
-		}
-
-	}
-
-	// https://github.com/junit-team/junit-framework/issues/4801
-	@Test
-	void should_fail_with_EmptySource() {
-		executeTestsForClass(EmptySourceTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(1).succeeded(0).failed(1))
-			.assertThatEvents()
-			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					message("Error converting parameter at index 0: HexArgumentConverter cannot convert objects of type [[B]. Only source objects of type [java.lang.String] are supported.")));
-	}
-
-	static class EmptySourceTestCase {
-
-		@ParameterizedTest
-		@EmptySource
 		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
 			// never called
 		}

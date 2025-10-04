@@ -33,10 +33,10 @@ class Base64ArgumentConverter extends AnnotationBasedArgumentConverter<Base64> {
 		}
 
 		if (source instanceof byte[]) {
-			return annotation.encoding().getDecoder().decode((byte[]) source);
+			return annotation.encoding().decoder.decode((byte[]) source);
 		}
-		else if (source instanceof String) {
-			return annotation.encoding().getDecoder().decode((String) source);
+		if (source instanceof String) {
+			return annotation.encoding().decoder.decode((String) source);
 		}
 
 		throw new ArgumentConversionException(
