@@ -6,85 +6,11 @@ This project provides a collection of [JUnit Framework](https://junit.org/)
 [converters](https://docs.junit.org/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit)
 for parameterized classes and tests.
 
-| Annotation           | Description                                                    |
-|----------------------|----------------------------------------------------------------|
-| [`@Base64`](#base64) | Decodes Base64 encoded instances into `byte[]` instances       |
-| [`@Bytes`](#bytes)   | Converts `String` instances into `byte[]` instances            |
-| [`@Hex`](#hex)       | Decodes hexadecimal `String` instances into `byte[]` instances |
+## Documentation
 
-## Getting Started
-
-### Compatibility
-
-JUnit Converters is based on JUnit Framework 5 and requires Java 8 or higher.
-
-### Maven
-
-```xml
-<dependency>
-  <groupId>io.github.scordio</groupId>
-  <artifactId>junit-converters</artifactId>
-  <version>${junit-converters.version}</version>
-  <scope>test</scope>
-</dependency>
-```
-
-### Gradle
-
-```kotlin
-testImplementation("io.github.scordio:junit-converters:${junitConvertersVersion}")
-```
-
-## @Base64
-
-`@Base64` decodes [Base64][] encoded instances of type `byte[]` or `String` into `byte[]` instances.
-
-The annotation's `encoding` attribute configures the desired encoding scheme, following [RFC 4648][] and [RFC 2045][]:
-
-* `BASIC`: for the _Basic_ encoding scheme (default)
-* `URL`: for the _URL and Filename Safe_ encoding scheme
-* `MIME`: for the _MIME_ encoding scheme
-
-The following source types and target declarations are supported.
-
-| Source Type | Target Declaration                | Example                                                                |
-|-------------|-----------------------------------|------------------------------------------------------------------------|
-| `byte[]`    | `@Base64 byte[]`                  | `new byte[] { 80, 122, 56, 47 }` → `new byte[] { 63, 63, 63 }`         |
-| `byte[]`    | `@Base64(encoding = URL) byte[]`  | `new byte[] { 80, 122, 56, 95 }` → `new byte[] { 63, 63, 63 }`         |
-| `byte[]`    | `@Base64(encoding = MIME) byte[]` | `new byte[] { 80, 122, 13, 10, 56, 47 }` → `new byte[] { 63, 63, 63 }` |
-| `String`    | `@Base64 byte[]`                  | `"Pz8/"` → `new byte[] { 63, 63, 63 }`                                 |
-| `String`    | `@Base64(encoding = URL) byte[]`  | `"Pz8_"` → `new byte[] { 63, 63, 63 }`                                 |
-| `String`    | `@Base64(encoding = MIME) byte[]` | `"Pz\r\n8/"` → `new byte[] { 63, 63, 63 }`                             |
-
-## @Bytes
-
-`@Bytes` converts `String` instances into `byte[]` instances.
-
-The annotation's `charset` attribute configures the charset to use for conversion.
-When not specified, the JVM default charset is used.
-
-The following source types and target declarations are supported.
-
-| Source Type | Target Declaration                 | Example                           |
-|-------------|------------------------------------|-----------------------------------|
-| `String`    | `@Bytes byte[]`                    | `"a"` → `new byte[] { 97 }`       |
-| `String`    | `@Bytes(charset = "UTF-8") byte[]` | `"ä"` → `new byte[] { -61, -92 }` |
-
-## @Hex
-
-`@Hex` decodes [hexadecimal][] `String` instances into `byte[]` instances.
-
-The following source types and target declarations are supported.
-
-| Source Type | Target Declaration | Example                                        |
-|-------------|--------------------|------------------------------------------------|
-| `String`    | `@Hex byte[]`      | `"0A1B2C"` → `new byte[] { 0x0A, 0x1B, 0x2C }` |
+- [User Guide](https://scordio.github.io/junit-converters/)
+- [Release Notes](../../releases)
 
 ## License
 
 JUnit Converters is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
-
-[Base64]: https://en.wikipedia.org/wiki/Base64
-[hexadecimal]: https://en.wikipedia.org/wiki/Hexadecimal
-[RFC 2045]: http://www.ietf.org/rfc/rfc2045.txt
-[RFC 4648]: http://www.ietf.org/rfc/rfc4648.txt

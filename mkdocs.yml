@@ -1,0 +1,89 @@
+# Project information
+site_name: JUnit Converters
+site_url: https://scordio.github.io/junit-converters
+site_author: Stefano Cordio
+site_description: Collection of JUnit Framework converters for parameterized classes and tests
+
+site_dir: target/mkdocs
+
+# Repository
+repo_url: https://github.com/scordio/junit-converters
+
+# Copyright
+copyright: Copyright &copy; 2025 Stefano Cordio
+
+# Configuration
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.indexes
+    - navigation.sections
+  icon:
+    logo: fontawesome/brands/java
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: green
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: green
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+
+# Additional configuration
+extra:
+  social:
+    - icon: fontawesome/brands/bluesky
+      link: https://bsky.app/profile/scordio.github.io
+    - icon: fontawesome/brands/mastodon
+      link: https://mastodon.social/@scordio
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/stefanocodes
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/scordio/
+
+# Extensions
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+# Extra stylesheets
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/pygments-intellij.css
+
+# Page tree
+nav:
+  - index.md
+  - Converters:
+    - converters/index.md
+    - converters/base64.md
+    - converters/bytes.md
+    - converters/hex.md
+  - javadoc.md
+  - release-notes.md
