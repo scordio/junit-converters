@@ -7,7 +7,7 @@ hide:
 
 `@Base64` decodes [Base64][] encoded instances of type `byte[]` or `String` into `byte[]` instances.
 
-The annotation's `encoding` attribute configures the desired encoding scheme, following [RFC 4648][] and [RFC 2045][]:
+The annotation's `encoding` attribute configures the desired encoding scheme:
 
 * `BASIC`: for the _Basic_ encoding scheme (default)
 * `URL`: for the _URL and Filename Safe_ encoding scheme
@@ -25,5 +25,3 @@ The following source types and target declarations are supported.
 | `#!java String` | `#!java @Base64(encoding = MIME) byte[]` | `#!java "Pz\r\n8/"` → `#!java new byte[] { 63, 63, 63 }`                             |
 
 [Base64]: https://en.wikipedia.org/wiki/Base64
-[RFC 2045]: http://www.ietf.org/rfc/rfc2045.txt
-[RFC 4648]: http://www.ietf.org/rfc/rfc4648.txt
