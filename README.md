@@ -1,10 +1,9 @@
-# JUnit Converters [![Maven Central](https://img.shields.io/maven-central/v/io.github.scordio/junit-converters?label=Maven%20Central)](https://mvnrepository.com/artifact/io.github.scordio/junit-converters) [![javadoc](https://javadoc.io/badge2/io.github.scordio/junit-converters/javadoc.svg)](https://javadoc.io/doc/io.github.scordio/junit-converters)
+# <img src="https://stefano.codes/junit-converters/assets/images/logo.png" align="right" width="100">JUnit Converters [![Maven Central](https://img.shields.io/maven-central/v/io.github.scordio/junit-converters?label=Maven%20Central)](https://mvnrepository.com/artifact/io.github.scordio/junit-converters) [![javadoc](https://javadoc.io/badge2/io.github.scordio/junit-converters/javadoc.svg)](https://javadoc.io/doc/io.github.scordio/junit-converters)
 
 [![CI](https://github.com/scordio/junit-converters/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/scordio/junit-converters/actions/workflows/main.yml?query=branch%3Amain)
 
-This project provides a collection of [JUnit Framework](https://junit.org/)
-[converters](https://docs.junit.org/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit)
-for parameterized classes and tests.
+This project is a collection of ready-to-use argument converters designed to streamline parameterized testing in the
+[JUnit Framework](https://junit.org/).
 
 ## Documentation
 
