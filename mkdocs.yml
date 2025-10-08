@@ -17,7 +17,6 @@ theme:
   name: material
   features:
     - content.code.copy
-    - navigation.indexes
     - navigation.sections
   icon:
     repo: fontawesome/brands/github
@@ -82,7 +81,6 @@ extra_css:
 nav:
   - index.md
   - Converters:
-    - converters/index.md
     - converters/base64.md
     - converters/bytes.md
     - converters/hex.md
