@@ -6,7 +6,8 @@ hide:
 
 # `@Base64`
 
-`@Base64` decodes [Base64](https://en.wikipedia.org/wiki/Base64) encoded instances to `byte[]` instances.
+`@Base64` decodes [Base64](https://en.wikipedia.org/wiki/Base64) encoded instances of type `byte[]` or `String` to
+`byte[]` instances.
 
 The annotation's `encoding` attribute configures the desired encoding scheme:
 
