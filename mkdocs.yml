@@ -1,6 +1,6 @@
 # Project information
 site_name: JUnit Converters
-site_url: https://scordio.github.io/junit-converters
+site_url: https://stefano.codes/junit-converters
 site_author: Stefano Cordio
 site_description: Collection of JUnit Framework converters for parameterized classes and tests
 
