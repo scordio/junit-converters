@@ -1,11 +1,12 @@
 ---
+description: Decodes hexadecimal strings to byte arrays
 hide:
   - toc
 ---
 
 # `@Hex`
 
-`@Hex` decodes [hexadecimal][] `String` instances into `byte[]` instances.
+`@Hex` decodes [hexadecimal][] `String` instances to `byte[]` instances.
 
 The following source types and target declarations are supported.
 

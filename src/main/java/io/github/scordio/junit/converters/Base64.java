@@ -26,7 +26,7 @@ import java.util.Base64.Decoder;
 
 /**
  * {@link ConvertWith} composed annotation that decodes Base64-encoded instances of type
- * {@link String} or {@code byte[]} into {@code byte[]} instances.
+ * {@code byte[]} or {@link String} to {@code byte[]} instances.
  */
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.PARAMETER, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)

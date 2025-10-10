@@ -1,11 +1,12 @@
 ---
+description: Decodes Base64 encoded instances to byte arrays
 hide:
   - toc
 ---
 
 # `@Base64`
 
-`@Base64` decodes [Base64][] encoded instances of type `byte[]` or `String` into `byte[]` instances.
+`@Base64` decodes [Base64](https://en.wikipedia.org/wiki/Base64) encoded instances to `byte[]` instances.
 
 The annotation's `encoding` attribute configures the desired encoding scheme:
 
@@ -23,5 +24,3 @@ The following source types and target declarations are supported.
 | `#!java String` | `#!java @Base64 byte[]`                  | `#!java "Pz8/"` → `#!java new byte[] { 63, 63, 63 }`                                 |
 | `#!java String` | `#!java @Base64(encoding = URL) byte[]`  | `#!java "Pz8_"` → `#!java new byte[] { 63, 63, 63 }`                                 |
 | `#!java String` | `#!java @Base64(encoding = MIME) byte[]` | `#!java "Pz\r\n8/"` → `#!java new byte[] { 63, 63, 63 }`                             |
-
-[Base64]: https://en.wikipedia.org/wiki/Base64
