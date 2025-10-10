@@ -2,7 +2,7 @@
 site_name: JUnit Converters
 site_url: https://stefano.codes/junit-converters
 site_author: Stefano Cordio
-site_description: Collection of JUnit Framework converters for parameterized classes and tests
+site_description: Collection of argument converters for JUnit parameterized testing
 
 site_dir: target/mkdocs
 
