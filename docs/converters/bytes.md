@@ -1,11 +1,12 @@
 ---
+description: Converts strings to byte arrays
 hide:
   - toc
 ---
 
 # `@Bytes`
 
-`@Bytes` converts `String` instances into `byte[]` instances.
+`@Bytes` converts `String` instances to `byte[]` instances.
 
 The annotation's `charset` attribute configures the charset to use for conversion.
 When not specified, the JVM default charset is used.

@@ -24,7 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * {@link ConvertWith} composed annotation that converts {@link String} instances into
+ * {@link ConvertWith} composed annotation that converts {@link String} instances to
  * {@code byte[]} instances.
  */
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.PARAMETER, ElementType.FIELD })
