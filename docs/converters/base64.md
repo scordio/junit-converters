@@ -6,10 +6,10 @@ hide:
 
 # `@Base64`
 
-`@Base64` decodes [Base64](https://en.wikipedia.org/wiki/Base64) encoded instances of type `byte[]` or `String` to
-`byte[]` instances.
+`@Base64` is an annotation that decodes [Base64](https://en.wikipedia.org/wiki/Base64) encoded instances of type
+`byte[]` or `String` to `byte[]` instances.
 
-The annotation's `encoding` attribute configures the desired encoding scheme:
+The `encoding` attribute configures the desired encoding scheme:
 
 * `BASIC` (default): for the _Basic_ encoding scheme
 * `URL`: for the _URL and Filename Safe_ encoding scheme
