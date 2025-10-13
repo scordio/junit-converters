@@ -104,6 +104,7 @@
               <compilerArg>--should-stop=ifError=FLOW</compilerArg>
               <compilerArg>
                 -Xplugin:ErrorProne
+                -Xep:ImmutableEnumChecker:OFF
                 -XepOpt:NullAway:OnlyNullMarked
               </compilerArg>
             </compilerArgs>

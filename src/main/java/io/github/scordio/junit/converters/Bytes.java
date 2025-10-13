@@ -24,8 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * {@link ConvertWith} composed annotation that converts {@link String} instances to
- * {@code byte[]} instances.
+ * {@link ConvertWith} composed annotation that converts {@link String} or number
+ * instances to {@code byte[]} instances.
  */
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.PARAMETER, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
@@ -35,10 +35,53 @@ import java.lang.annotation.Target;
 public @interface Bytes {
 
 	/**
-	 * The charset the converter should use. Defaults to
-	 * {@link java.nio.charset.Charset#defaultCharset()}.
+	 * The charset the converter should use when converting strings.
+	 * <p>
+	 * Defaults to {@link java.nio.charset.Charset#defaultCharset()}.
 	 * @return the charset to use
+	 * @see java.nio.charset.Charset#forName(String)
 	 */
 	String charset() default "";
+
+	/**
+	 * The byte order the converter should use when converting numbers.
+	 * <p>
+	 * Defaults to {@link ByteOrder#BIG_ENDIAN}.
+	 * @return the byte order to use
+	 */
+	ByteOrder order() default ByteOrder.BIG_ENDIAN;
+
+	/**
+	 * Enumeration of byte orders.
+	 */
+	enum ByteOrder {
+
+		/**
+		 * Big-endian byte order.
+		 * <p>
+		 * In this order, the bytes of a multibyte value are ordered from most significant
+		 * to least significant.
+		 *
+		 * @see java.nio.ByteOrder#BIG_ENDIAN
+		 */
+		BIG_ENDIAN(java.nio.ByteOrder.BIG_ENDIAN),
+
+		/**
+		 * Little-endian byte order.
+		 * <p>
+		 * In this order, the bytes of a multibyte value are ordered from least
+		 * significant to most significant.
+		 *
+		 * @see java.nio.ByteOrder#LITTLE_ENDIAN
+		 */
+		LITTLE_ENDIAN(java.nio.ByteOrder.LITTLE_ENDIAN);
+
+		final java.nio.ByteOrder nioOrder;
+
+		ByteOrder(java.nio.ByteOrder nioOrder) {
+			this.nioOrder = nioOrder;
+		}
+
+	}
 
 }

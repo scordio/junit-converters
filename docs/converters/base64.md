@@ -11,7 +11,7 @@ hide:
 
 The annotation's `encoding` attribute configures the desired encoding scheme:
 
-* `BASIC`: for the _Basic_ encoding scheme (default)
+* `BASIC` (default): for the _Basic_ encoding scheme
 * `URL`: for the _URL and Filename Safe_ encoding scheme
 * `MIME`: for the _MIME_ encoding scheme
 

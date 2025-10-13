@@ -39,7 +39,7 @@ JUnit Converters is based on the JUnit Framework 5 and requires Java 8 or higher
 The following converters are available:
 
 * [`@Base64`](converters/base64.md): decodes Base64 encoded instances to `byte[]` instances
-* [`@Bytes`](converters/bytes.md): converts `String` instances to `byte[]` instances
+* [`@Bytes`](converters/bytes.md): converts `String` or number instances to `byte[]` instances
 * [`@Hex`](converters/hex.md): decodes hexadecimal `String` instances to `byte[]` instances
 
 Do you have in mind another converter for your use case?
