@@ -1,5 +1,5 @@
 ---
-description: Decodes Base64 encoded instances to byte arrays
+description: An argument converter to decode Base64 instances to byte arrays
 hide:
   - toc
 ---

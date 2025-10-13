@@ -1,5 +1,5 @@
 ---
-description: Converts strings to byte arrays
+description: An argument converter to convert strings or numbers to byte arrays
 hide:
   - toc
 ---

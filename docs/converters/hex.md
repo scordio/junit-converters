@@ -1,5 +1,5 @@
 ---
-description: Decodes hexadecimal strings to byte arrays
+description: An argument converter to decode hexadecimal strings to byte arrays
 hide:
   - toc
 ---
