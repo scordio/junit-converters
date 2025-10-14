@@ -38,9 +38,9 @@ JUnit Converters is based on the JUnit Framework 5 and requires Java 8 or higher
 
 The following converters are available:
 
-* [`@Base64`](converters/base64.md): decodes Base64 encoded instances to `byte[]` instances
-* [`@Bytes`](converters/bytes.md): converts `String` or number instances to `byte[]` instances
-* [`@Hex`](converters/hex.md): decodes hexadecimal `String` instances to `byte[]` instances
+* [`@Base64`](converters/base64.md): decodes Base64 instances into byte arrays
+* [`@Bytes`](converters/bytes.md): converts strings or numbers into byte arrays
+* [`@Hex`](converters/hex.md): decodes hexadecimal strings into byte arrays
 
 Do you have in mind another converter for your use case?
 [:fontawesome-brands-github: Raise an issue!](https://github.com/scordio/junit-converters/issues/new)
