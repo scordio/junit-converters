@@ -32,11 +32,11 @@ class Base64ArgumentConverter extends AnnotationBasedArgumentConverter<Base64> {
 					String.format("Target type %s is not supported", targetType.getTypeName()));
 		}
 
-		if (source instanceof byte[]) {
-			return annotation.encoding().decoder.decode((byte[]) source);
+		if (source instanceof byte[] bytes) {
+			return annotation.encoding().decoder.decode(bytes);
 		}
-		if (source instanceof String) {
-			return annotation.encoding().decoder.decode((String) source);
+		if (source instanceof String string) {
+			return annotation.encoding().decoder.decode(string);
 		}
 
 		throw new ArgumentConversionException(
