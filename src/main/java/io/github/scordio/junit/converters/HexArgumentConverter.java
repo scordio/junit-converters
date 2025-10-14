@@ -31,19 +31,31 @@ class HexArgumentConverter extends TypedArgumentConverter<String, byte[]> {
 	protected byte[] convert(@Nullable String source) throws ArgumentConversionException {
 		Objects.requireNonNull(source, "'null' is not supported");
 
-		int length = source.length();
+		String hexString = getHexString(source);
+
+		int length = hexString.length();
 		if (length % 2 != 0) {
 			throw new ArgumentConversionException("Hex string must have even length");
 		}
 
 		byte[] bytes = new byte[length / 2];
 		for (int i = 0; i < length; i += 2) {
-			int hi = getDigit(source, i);
-			int lo = getDigit(source, i + 1);
+			int hi = getDigit(hexString, i);
+			int lo = getDigit(hexString, i + 1);
 			bytes[i / 2] = (byte) ((hi << 4) | lo);
 		}
 
 		return bytes;
+	}
+
+	private static String getHexString(String source) {
+		if (source.startsWith("0x") || source.startsWith("0X")) {
+			if (source.length() > 2) {
+				return source.substring(2);
+			}
+			throw new ArgumentConversionException("Hex string must contain at least one hex digit after '0x' prefix");
+		}
+		return source;
 	}
 
 	private static int getDigit(String source, int index) {

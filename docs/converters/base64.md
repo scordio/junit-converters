@@ -1,5 +1,5 @@
 ---
-description: An argument converter to decode Base64 instances to byte arrays
+description: An argument converter to decode Base64 instances into byte arrays
 hide:
   - toc
 ---
@@ -7,7 +7,7 @@ hide:
 # `@Base64`
 
 `@Base64` is an annotation that decodes [Base64](https://en.wikipedia.org/wiki/Base64) encoded instances of type
-`byte[]` or `String` to `byte[]` instances.
+`byte[]` or `String` into `byte[]` instances.
 
 The `encoding` attribute configures the desired encoding scheme:
 

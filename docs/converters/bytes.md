@@ -1,16 +1,16 @@
 ---
-description: An argument converter to convert strings or numbers to byte arrays
+description: An argument converter to convert strings or numbers into byte arrays
 hide:
   - toc
 ---
 
 # `@Bytes`
 
-`@Bytes` is an annotation that converts `String` or number instances to `byte[]` instances.
+`@Bytes` is an annotation that converts `String` or number instances into `byte[]` instances.
 
 ## With Strings
 
-When converting strings, the input instance is encoded to a sequence of bytes.
+When converting strings, the input instance is encoded into a sequence of bytes.
 
 The `charset` attribute configures the charset to use for conversion.
 If not specified, the JVM default charset is used.
@@ -25,7 +25,7 @@ The following source types and target declarations are supported.
 
 ## With Numbers
 
-When converting numbers, the input instance is converted to a sequence of bytes using its binary representation.
+When converting numbers, the input instance is converted into a sequence of bytes using its binary representation.
 
 The `order` attribute configures the byte order to use for conversion:
 

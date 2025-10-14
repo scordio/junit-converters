@@ -16,6 +16,7 @@
 package io.github.scordio.tests.junit.converters;
 
 import static io.github.scordio.tests.junit.converters.JupiterEngineTestKit.executeTestsForClass;
+import static java.util.Locale.ROOT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.junit.platform.testkit.engine.EventConditions.finishedWithFailure;
@@ -41,7 +42,7 @@ class HexIntegrationTests {
 	@Test
 	void should_convert_supported_values() {
 		executeTestsForClass(SupportedValuesTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(4).succeeded(4));
+			.assertStatistics(stats -> stats.started(13).succeeded(13));
 	}
 
 	static class SupportedValuesTestCase {
@@ -53,13 +54,27 @@ class HexIntegrationTests {
 		}
 
 		static Stream<Arguments> hexArguments() {
-			return Stream.of( //
-					arguments("", new byte[0]), //
-					arguments("00", new byte[1]), //
-					arguments("1234567890abcdef",
-							new byte[] { 0x12, 0x34, 0x56, 0x78, (byte) 0x90, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF }),
-					arguments("FEDCBA0987654321",
-							new byte[] { (byte) 0xFE, (byte) 0xDC, (byte) 0xBA, 0x09, (byte) 0x87, 0x65, 0x43, 0x21 }));
+			return Stream.concat( //
+					Stream.of(arguments("", new byte[0])), //
+					Stream.of(
+					// @formatter:off
+							new TestCase("00", new byte[1]),
+							new TestCase("1234567890ABCDEF", new byte[] { 0x12, 0x34, 0x56, 0x78, (byte) 0x90, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF }),
+							new TestCase("FEDCBA0987654321", new byte[] { (byte) 0xFE, (byte) 0xDC, (byte) 0xBA, 0x09, (byte) 0x87, 0x65, 0x43, 0x21 }))
+					// @formatter:on
+						.flatMap(TestCase::toArguments));
+		}
+
+		@SuppressWarnings({ "ArrayRecordComponent" })
+		private record TestCase(String actual, byte[] expected) {
+
+			private Stream<Arguments> toArguments() {
+				return Stream.of("", "0x")
+					.flatMap(prefix -> Stream.of( //
+							arguments(prefix + actual, expected), //
+							arguments(prefix + actual.toLowerCase(ROOT), expected)));
+			}
+
 		}
 
 	}
@@ -67,7 +82,7 @@ class HexIntegrationTests {
 	@Test
 	void should_fail_with_unsupported_values() {
 		executeTestsForClass(UnsupportedValuesTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(8).failed(8))
+			.assertStatistics(stats -> stats.started(9).failed(9))
 			.assertThatEvents()
 			.haveExactly(1, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
@@ -87,7 +102,10 @@ class HexIntegrationTests {
 					instanceOf(ParameterResolutionException.class), //
 					cause( //
 							instanceOf(ArgumentConversionException.class),
-							message("Invalid hex character at position 1"))));
+							message("Invalid hex character at position 1"))))
+			.haveExactly(1, finishedWithFailure( //
+					instanceOf(ParameterResolutionException.class), cause(instanceOf(ArgumentConversionException.class),
+							message("Hex string must contain at least one hex digit after '0x' prefix"))));
 	}
 
 	static class UnsupportedValuesTestCase {
@@ -95,7 +113,7 @@ class HexIntegrationTests {
 		@ParameterizedTest
 		@NullSource
 		@EmptySource // https://github.com/junit-team/junit-framework/issues/4801
-		@ValueSource(strings = { " ", "A", "  ", "AG", "GG", "AAA" })
+		@ValueSource(strings = { " ", "A", "  ", "AG", "GG", "AAA", "0x" })
 		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
 			// never called
 		}
