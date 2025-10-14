@@ -36,11 +36,11 @@ class Base64ArgumentConverter extends AnnotationBasedArgumentConverter<Base64> {
 
 		Decoder decoder = getDecoder(annotation.encoding());
 
-		if (source instanceof byte[]) {
-			return decoder.decode((byte[]) source);
+		if (source instanceof byte[] bytes) {
+			return decoder.decode(bytes);
 		}
-		if (source instanceof String) {
-			return decoder.decode((String) source);
+		if (source instanceof String string) {
+			return decoder.decode(string);
 		}
 
 		throw new ArgumentConversionException(
@@ -48,16 +48,11 @@ class Base64ArgumentConverter extends AnnotationBasedArgumentConverter<Base64> {
 	}
 
 	private static Decoder getDecoder(Encoding encoding) {
-		switch (encoding) {
-			case BASIC:
-				return java.util.Base64.getDecoder();
-			case URL:
-				return java.util.Base64.getUrlDecoder();
-			case MIME:
-				return java.util.Base64.getMimeDecoder();
-			default:
-				throw new IllegalArgumentException("Unsupported encoding " + encoding);
-		}
+		return switch (encoding) {
+			case BASIC -> java.util.Base64.getDecoder();
+			case URL -> java.util.Base64.getUrlDecoder();
+			case MIME -> java.util.Base64.getMimeDecoder();
+		};
 	}
 
 }

@@ -35,8 +35,8 @@ class BytesArgumentConverter extends AnnotationBasedArgumentConverter<Bytes> {
 					String.format("Target type %s is not supported", targetType.getTypeName()));
 		}
 
-		if (source instanceof String) {
-			return ((String) source).getBytes(forName(annotation.charset()));
+		if (source instanceof String string) {
+			return string.getBytes(forName(annotation.charset()));
 		}
 		if (source instanceof Byte) {
 			return ByteBuffer.allocate(Byte.BYTES).order(getOrder(annotation)).put((byte) source).array();
