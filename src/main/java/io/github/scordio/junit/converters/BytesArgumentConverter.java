@@ -66,7 +66,9 @@ class BytesArgumentConverter extends AnnotationBasedArgumentConverter<Bytes> {
 	}
 
 	private static ByteOrder getOrder(Bytes annotation) {
-		return annotation.order().nioOrder;
+		return annotation.order() == Bytes.ByteOrder.BIG_ENDIAN //
+				? java.nio.ByteOrder.BIG_ENDIAN //
+				: java.nio.ByteOrder.LITTLE_ENDIAN;
 	}
 
 }

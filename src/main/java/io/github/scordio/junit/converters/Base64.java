@@ -22,7 +22,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.Base64.Decoder;
 
 /**
  * {@link ConvertWith} composed annotation that decodes Base64-encoded instances of type
@@ -55,27 +54,21 @@ public @interface Base64 {
 		 *
 		 * @see java.util.Base64#getDecoder()
 		 */
-		BASIC(java.util.Base64.getDecoder()),
+		BASIC,
 
 		/**
 		 * The URL and Filename Safe encoding scheme.
 		 *
 		 * @see java.util.Base64#getUrlDecoder()
 		 */
-		URL(java.util.Base64.getUrlDecoder()),
+		URL,
 
 		/**
 		 * The MIME encoding scheme.
 		 *
 		 * @see java.util.Base64#getMimeDecoder()
 		 */
-		MIME(java.util.Base64.getMimeDecoder());
-
-		final Decoder decoder;
-
-		Encoding(Decoder decoder) {
-			this.decoder = decoder;
-		}
+		MIME
 
 	}
 

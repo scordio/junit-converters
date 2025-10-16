@@ -64,7 +64,7 @@ public @interface Bytes {
 		 *
 		 * @see java.nio.ByteOrder#BIG_ENDIAN
 		 */
-		BIG_ENDIAN(java.nio.ByteOrder.BIG_ENDIAN),
+		BIG_ENDIAN,
 
 		/**
 		 * Little-endian byte order.
@@ -74,13 +74,7 @@ public @interface Bytes {
 		 *
 		 * @see java.nio.ByteOrder#LITTLE_ENDIAN
 		 */
-		LITTLE_ENDIAN(java.nio.ByteOrder.LITTLE_ENDIAN);
-
-		final java.nio.ByteOrder nioOrder;
-
-		ByteOrder(java.nio.ByteOrder nioOrder) {
-			this.nioOrder = nioOrder;
-		}
+		LITTLE_ENDIAN
 
 	}
 

@@ -15,10 +15,12 @@
  */
 package io.github.scordio.junit.converters;
 
+import io.github.scordio.junit.converters.Base64.Encoding;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.params.converter.AnnotationBasedArgumentConverter;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
 
+import java.util.Base64.Decoder;
 import java.util.Objects;
 
 class Base64ArgumentConverter extends AnnotationBasedArgumentConverter<Base64> {
@@ -32,15 +34,30 @@ class Base64ArgumentConverter extends AnnotationBasedArgumentConverter<Base64> {
 					String.format("Target type %s is not supported", targetType.getTypeName()));
 		}
 
+		Decoder decoder = getDecoder(annotation.encoding());
+
 		if (source instanceof byte[]) {
-			return annotation.encoding().decoder.decode((byte[]) source);
+			return decoder.decode((byte[]) source);
 		}
 		if (source instanceof String) {
-			return annotation.encoding().decoder.decode((String) source);
+			return decoder.decode((String) source);
 		}
 
 		throw new ArgumentConversionException(
 				String.format("Source type %s is not supported", source.getClass().getTypeName()));
+	}
+
+	private static Decoder getDecoder(Encoding encoding) {
+		switch (encoding) {
+			case BASIC:
+				return java.util.Base64.getDecoder();
+			case URL:
+				return java.util.Base64.getUrlDecoder();
+			case MIME:
+				return java.util.Base64.getMimeDecoder();
+			default:
+				throw new IllegalArgumentException("Unsupported encoding " + encoding);
+		}
 	}
 
 }
