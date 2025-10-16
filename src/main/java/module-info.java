@@ -21,11 +21,15 @@
  * @see org.junit.jupiter.params.ParameterizedClass
  * @see org.junit.jupiter.params.ParameterizedTest
  */
+@SuppressWarnings("requires-automatic")
 module io.github.scordio.junit.converters {
 
 	requires static transitive org.jspecify;
 
+	requires static spring.core;
+
 	requires org.junit.jupiter.params;
+	requires spring.context;
 
 	exports io.github.scordio.junit.converters;
 
