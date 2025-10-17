@@ -85,6 +85,31 @@ jobs:
       - name: Generate Javadoc
         run: ./mvnw $MAVEN_ARGS compile javadoc:javadoc
 
+  publish-snapshot:
+
+    name: Publish Snapshot
+    needs: java
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'scordio' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Set up Maven Central
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        with:
+          java-version: '25'
+          distribution: 'zulu'
+
+      - name: Publish to Maven Central
+        run: ./mvnw $MAVEN_ARGS -DskipTests -Ppublish deploy
+        env:
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+          JRELEASER_NEXUS2_TOKEN: ${{ secrets.JRELEASER_MAVENCENTRAL_TOKEN }}
+          JRELEASER_NEXUS2_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_USERNAME }}
+
   build-user-guide:
 
     name: Build User Guide
