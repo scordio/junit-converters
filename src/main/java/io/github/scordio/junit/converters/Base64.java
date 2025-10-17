@@ -26,6 +26,8 @@ import java.lang.annotation.Target;
 /**
  * {@link ConvertWith} composed annotation that decodes Base64-encoded instances of type
  * {@code byte[]} or {@link String} into {@code byte[]} instances.
+ * <p>
+ * The {@link #encoding} attribute configures the desired encoding scheme.
  */
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.PARAMETER, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)

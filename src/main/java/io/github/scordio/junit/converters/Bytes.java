@@ -26,6 +26,14 @@ import java.lang.annotation.Target;
 /**
  * {@link ConvertWith} composed annotation that converts {@link String} or number
  * instances into {@code byte[]} instances.
+ * <p>
+ * When converting strings, the input instance is encoded into a sequence of bytes. The
+ * {@link #charset} attribute configures the charset to use for conversion. If not
+ * specified, the JVM default charset is used.
+ * <p>
+ * When converting numbers, the input instance is converted into a sequence of bytes using
+ * its binary representation. The {@link #order} attribute configures the byte order to
+ * use for conversion.
  */
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.PARAMETER, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
