@@ -89,7 +89,10 @@ class HexIntegrationTests {
 					cause(instanceOf(NullPointerException.class), message("'null' is not supported"))))
 			.haveExactly(1, finishedWithFailure( // https://github.com/junit-team/junit-framework/issues/4801
 					instanceOf(ParameterResolutionException.class),
-					message("Error converting parameter at index 0: HexArgumentConverter cannot convert objects of type [[B]. Only source objects of type [java.lang.String] are supported.")))
+					// https://github.com/junit-team/junit-framework/issues/4806
+					message(message -> message.startsWith(
+							"Error converting parameter at index 0: HexArgumentConverter cannot convert objects of type")
+							&& message.endsWith("Only source objects of type [java.lang.String] are supported."))))
 			.haveExactly(3, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
 					cause(instanceOf(ArgumentConversionException.class), message("Hex string must have even length"))))
