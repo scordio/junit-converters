@@ -12,6 +12,7 @@ clear test cases without clutter.
 ## Compatibility
 
 JUnit Converters is based on the JUnit Framework 5 and requires Java 8 or higher.
+Compatibility is also guaranteed with the JUnit Framework 6.
 
 ## Getting Started
 
