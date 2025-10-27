@@ -6,8 +6,14 @@ hide:
 
 # `@Hex`
 
-`@Hex` is an annotation that decodes [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) `String` instances into
-`byte[]` instances.
+`@Hex` is an annotation that decodes [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) `String` instances into `byte[]` instances:
+
+``` java
+--8<--
+HexDemo.java:import
+HexDemo.java:test
+--8<--
+```
 
 The input strings are treated as case-insensitive and can be prefixed by `0x`.
 

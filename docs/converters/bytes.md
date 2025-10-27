@@ -10,9 +10,16 @@ hide:
 
 ## With Strings
 
-When converting strings, the input instance is encoded into a sequence of bytes.
+When converting strings, the input instance is encoded into a sequence of bytes:
 
-The `charset` attribute configures the charset to use for conversion.
+``` java
+--8<--
+BytesDemo.java:import
+BytesDemo.java:test-strings
+--8<--
+```
+
+The annotation's optional `charset` attribute configures the charset to use for conversion.
 If not specified, the JVM default charset is used.
 
 The following source types and target declarations are supported.
@@ -25,9 +32,16 @@ The following source types and target declarations are supported.
 
 ## With Numbers
 
-When converting numbers, the input instance is converted into a sequence of bytes using its binary representation.
+When converting numbers, the input instance is converted into a sequence of bytes using its binary representation:
 
-The `order` attribute configures the byte order to use for conversion:
+``` java
+--8<--
+BytesDemo.java:import
+BytesDemo.java:test-numbers
+--8<--
+```
+
+The annotation's optional `order` attribute configures the byte order to use for conversion:
 
 * `BIG_ENDIAN` (default): the bytes of a multibyte value are ordered from most significant to least significant
 * `LITTLE_ENDIAN`: the bytes of a multibyte value are ordered from least significant to most significant
