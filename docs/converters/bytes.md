@@ -1,7 +1,5 @@
 ---
 description: An argument converter to convert strings or numbers into byte arrays
-hide:
-  - toc
 ---
 
 # `@Bytes`
