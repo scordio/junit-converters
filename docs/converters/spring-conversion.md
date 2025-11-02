@@ -92,9 +92,9 @@ refer to the Spring Framework reference documentation.
 
 ### Map → Map
 
-| Source Type                  | Target Declaration                              | Example                                                                       |
-|------------------------------|-------------------------------------------------|-------------------------------------------------------------------------------|
-| `#!java Map<String, String>` | `#!java @SpringConversion Map<Integer, Double>` | `#!java Map.of("1", "123", "2", "456")` → `#!java Map.of(1, 123.0, 2, 456.0)` |
+| Source Type                  | Target Declaration                              | Example                                                                           |
+|------------------------------|-------------------------------------------------|-----------------------------------------------------------------------------------|
+| `#!java Map<String, String>` | `#!java @SpringConversion Map<Integer, Double>` | `#!java Map.of("1", "123.4", "2", "567.8")` → `#!java Map.of(1, 123.4, 2, 567.8)` |
 
 ### String → Collection
 

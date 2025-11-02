@@ -92,7 +92,7 @@ class SpringConversionIntegrationTests {
 			assertThat(map).isEqualTo(expected);
 		}
 
-		static List<?> mapToMap = List.of(arguments(Map.of("1", "123", "2", "456"), Map.of(1, 123.0, 2, 456.0)));
+		static List<?> mapToMap = List.of(arguments(Map.of("1", "123.4", "2", "567.8"), Map.of(1, 123.4, 2, 567.8)));
 
 		@ParameterizedTest
 		@FieldSource("stringToList")
