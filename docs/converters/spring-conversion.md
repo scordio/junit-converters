@@ -1,5 +1,5 @@
 ---
-description: An argument converter using the Spring Framework type conversion
+description: An argument converter using Spring Framework type conversion
 ---
 
 # `@SpringConversion`

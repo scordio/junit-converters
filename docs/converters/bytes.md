@@ -1,5 +1,5 @@
 ---
-description: An argument converter to convert strings or numbers into byte arrays
+description: An argument converter converting strings or numbers into byte arrays
 ---
 
 # `@Bytes`

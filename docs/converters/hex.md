@@ -1,5 +1,5 @@
 ---
-description: An argument converter to decode hexadecimal strings into byte arrays
+description: An argument converter decoding hexadecimal strings into byte arrays
 ---
 
 # `@Hex`
