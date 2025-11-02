@@ -1,7 +1,5 @@
 ---
 description: An argument converter to decode hexadecimal strings into byte arrays
-hide:
-  - toc
 ---
 
 # `@Hex`

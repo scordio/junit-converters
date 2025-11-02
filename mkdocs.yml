@@ -18,6 +18,7 @@ theme:
   features:
     - content.code.copy
     - navigation.sections
+    - toc.integrate
   icon:
     repo: fontawesome/brands/github
   favicon: assets/images/logo.png
@@ -91,5 +92,6 @@ nav:
     - converters/base64.md
     - converters/bytes.md
     - converters/hex.md
+    - converters/spring-conversion.md
   - javadoc.md
   - release-notes.md
