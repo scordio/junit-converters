@@ -26,6 +26,9 @@ import java.lang.annotation.Target;
 /**
  * {@link ConvertWith} composed annotation that converts arguments using the Spring
  * {@link org.springframework.core.convert.ConversionService conversion service}.
+ * <p>
+ * <strong>Note:</strong> The annotation requires {@code org.springframework:spring-core}
+ * available in the test classpath, which is generally the case for Spring applications.
  *
  * @see org.springframework.core.convert.ConversionService
  * @see org.springframework.core.convert.support.DefaultConversionService
