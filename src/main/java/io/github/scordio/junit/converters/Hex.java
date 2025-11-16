@@ -24,8 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * {@link ConvertWith} composed annotation that decodes hexadecimal {@link String}
- * instances into {@code byte[]} instances.
+ * {@code @Hex} is a {@link ConvertWith} composed annotation that decodes hexadecimal
+ * {@link String} instances into {@code byte[]} instances.
  * <p>
  * The input strings are treated as case-insensitive and can be prefixed by {@code 0x}.
  */

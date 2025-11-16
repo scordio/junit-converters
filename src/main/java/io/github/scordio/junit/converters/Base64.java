@@ -24,8 +24,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * {@link ConvertWith} composed annotation that decodes Base64-encoded instances of type
- * {@code byte[]} or {@link String} into {@code byte[]} instances.
+ * {@code @Base64} is a {@link ConvertWith} composed annotation that decodes
+ * Base64-encoded instances of type {@code byte[]} or {@link String} into {@code byte[]}
+ * instances.
  * <p>
  * The {@link #encoding} attribute configures the desired encoding scheme.
  */

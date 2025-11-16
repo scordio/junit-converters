@@ -24,8 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * {@link ConvertWith} composed annotation that converts {@link String} or number
- * instances into {@code byte[]} instances.
+ * {@code @Bytes} is a {@link ConvertWith} composed annotation that converts
+ * {@link String} or number instances into {@code byte[]} instances.
  * <p>
  * When converting strings, the input instance is encoded into a sequence of bytes. The
  * {@link #charset} attribute configures the charset to use for conversion. If not
