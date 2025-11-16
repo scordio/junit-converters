@@ -39,68 +39,68 @@ class SpringConversionIntegrationTests {
 
 		@ParameterizedTest
 		@FieldSource
-		void arrayToArray(@SpringConversion int[] array, int[] expected) {
+		void array_to_array(@SpringConversion int[] array, int[] expected) {
 			assertThat(array).isEqualTo(expected);
 		}
 
-		static List<?> arrayToArray = List.of(arguments(new String[] { "123", "456" }, new int[] { 123, 456 }));
+		static List<?> array_to_array = List.of(arguments(new String[] { "123", "456" }, new int[] { 123, 456 }));
 
 		@ParameterizedTest
 		@FieldSource
-		void arrayToList(@SpringConversion List<Integer> list, List<Integer> expected) {
+		void array_to_list(@SpringConversion List<Integer> list, List<Integer> expected) {
 			assertThat(list).isEqualTo(expected);
 		}
 
-		static List<?> arrayToList = List.of( //
+		static List<?> array_to_list = List.of( //
 				arguments(new int[] { 123, 456 }, List.of(123, 456)),
 				arguments(new Integer[] { 123, 456 }, List.of(123, 456)),
 				arguments(new String[] { "123", "456" }, List.of(123, 456)));
 
 		@ParameterizedTest
 		@FieldSource
-		void arrayToObject(@SpringConversion int value, int expected) {
+		void array_to_object(@SpringConversion int value, int expected) {
 			assertThat(value).isEqualTo(expected);
 		}
 
-		static List<?> arrayToObject = List.of( //
+		static List<?> array_to_object = List.of( //
 				arguments(new int[] { 123, 456 }, 123), //
 				arguments(new Integer[] { 123, 456 }, 123), //
 				arguments(new String[] { "123", "456" }, 123));
 
 		@ParameterizedTest
 		@FieldSource
-		void arrayToString(@SpringConversion String string, String expected) {
+		void array_to_string(@SpringConversion String string, String expected) {
 			assertThat(string).isEqualTo(expected);
 		}
 
-		static List<?> arrayToString = List.of( //
+		static List<?> array_to_string = List.of( //
 				arguments(new int[] { 123, 456 }, "123,456"), //
 				arguments(new Integer[] { 123, 456 }, "123,456"), //
 				arguments(new String[] { "123", "456" }, "123,456"));
 
 		@ParameterizedTest
-		@FieldSource("listToList")
-		void listToList(@SpringConversion List<Integer> list, List<Integer> expected) {
+		@FieldSource
+		void list_to_list(@SpringConversion List<Integer> list, List<Integer> expected) {
 			assertThat(list).isEqualTo(expected);
 		}
 
-		static List<?> listToList = List.of(arguments(List.of("123", "456"), List.of(123, 456)));
+		static List<?> list_to_list = List.of(arguments(List.of("123", "456"), List.of(123, 456)));
 
 		@ParameterizedTest
-		@FieldSource("mapToMap")
-		void mapToMap(@SpringConversion Map<Integer, Double> map, Map<Integer, Double> expected) {
+		@FieldSource
+		void map_to_map(@SpringConversion Map<Integer, Double> map, Map<Integer, Double> expected) {
 			assertThat(map).isEqualTo(expected);
 		}
 
-		static List<?> mapToMap = List.of(arguments(Map.of("1", "123.4", "2", "567.8"), Map.of(1, 123.4, 2, 567.8)));
+		static List<?> map_to_map = List.of(arguments(Map.of("1", "123.4", "2", "567.8"), Map.of(1, 123.4, 2, 567.8)));
 
 		@ParameterizedTest
-		@FieldSource("stringToList")
-		void stringToList(@SpringConversion List<Integer> list, List<Integer> expected) {
+		@FieldSource
+		void string_to_list(@SpringConversion List<Integer> list, List<Integer> expected) {
 			assertThat(list).isEqualTo(expected);
 		}
 
-		static List<?> stringToList = List.of(arguments("123, 456", List.of(123, 456)));
+		static List<?> string_to_list = List.of(arguments("123, 456", List.of(123, 456)));
 
 	}
 
