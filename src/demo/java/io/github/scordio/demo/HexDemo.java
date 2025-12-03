@@ -13,46 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.scordio;
+package io.github.scordio.demo;
 
 // --8<-- [start:import]
-import io.github.scordio.junit.converters.Bytes;
+import io.github.scordio.junit.converters.Hex;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 // --8<-- [end:import]
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class BytesDemo {
-
-	static class WithStrings {
+class HexDemo {
 
 // @formatter:off
-// --8<-- [start:test-strings]
+// --8<-- [start:test]
 
 @ParameterizedTest
-@ValueSource(strings = "value")
-void test(@Bytes byte[] bytes) {
-	assertArrayEquals(new byte[] { 118, 97, 108, 117, 101 }, bytes);
+@ValueSource(strings = { "0x0A1B2C", "0A1B2C" })
+void test(@Hex byte[] bytes) {
+	assertArrayEquals(new byte[] { 0x0A, 0x1B, 0x2C }, bytes);
 }
-// --8<-- [end:test-strings]
+// --8<-- [end:test]
 // @formatter:on
-
-	}
-
-	static class WithNumbers {
-
-// @formatter:off
-// --8<-- [start:test-numbers]
-
-@ParameterizedTest
-@ValueSource(ints = 0x12345678)
-void test(@Bytes byte[] bytes) {
-	assertArrayEquals(new byte[] { 0x12, 0x34, 0x56, 0x78 }, bytes);
-}
-// --8<-- [end:test-numbers]
-// @formatter:on
-
-	}
 
 }

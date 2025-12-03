@@ -108,7 +108,6 @@
           <version>3.14.1</version>
           <configuration>
             <compilerArgs>
-              <compilerArg>-Xlint:all,-options</compilerArg>
               <compilerArg>-parameters</compilerArg>
               <compilerArg>-Xlint:all,-options</compilerArg>
               <!-- https://errorprone.info/docs/installation#maven -->
@@ -116,6 +115,7 @@
               <compilerArg>--should-stop=ifError=FLOW</compilerArg>
               <compilerArg>
                 -Xplugin:ErrorProne
+                -Xep:RequireExplicitNullMarking:WARN
                 -XepOpt:NullAway:OnlyNullMarked
               </compilerArg>
             </compilerArgs>

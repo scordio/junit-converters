@@ -13,31 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.scordio;
+package io.github.scordio.demo;
 
 // --8<-- [start:import]
-import io.github.scordio.junit.converters.Base64;
+import io.github.scordio.junit.converters.Bytes;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.FieldSource;
+import org.junit.jupiter.params.provider.ValueSource;
 // --8<-- [end:import]
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class Base64Demo {
+class BytesDemo {
+
+	static class WithStrings {
 
 // @formatter:off
-// --8<-- [start:test]
+// --8<-- [start:test-strings]
 
 @ParameterizedTest
-@FieldSource("encoded")
-void test(@Base64 byte[] bytes) {
-	assertArrayEquals(new byte[] { 63, 63, 63 }, bytes);
+@ValueSource(strings = "value")
+void test(@Bytes byte[] bytes) {
+	assertArrayEquals(new byte[] { 118, 97, 108, 117, 101 }, bytes);
 }
-
-static List<?> encoded = List.of("Pz8/", new byte[] { 80, 122, 56, 47 });
-// --8<-- [end:test]
+// --8<-- [end:test-strings]
 // @formatter:on
+
+	}
+
+	static class WithNumbers {
+
+// @formatter:off
+// --8<-- [start:test-numbers]
+
+@ParameterizedTest
+@ValueSource(ints = 0x12345678)
+void test(@Bytes byte[] bytes) {
+	assertArrayEquals(new byte[] { 0x12, 0x34, 0x56, 0x78 }, bytes);
+}
+// --8<-- [end:test-numbers]
+// @formatter:on
+
+	}
 
 }
