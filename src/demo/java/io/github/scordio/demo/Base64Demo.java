@@ -13,26 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.scordio;
+package io.github.scordio.demo;
 
 // --8<-- [start:import]
-import io.github.scordio.junit.converters.Hex;
+import io.github.scordio.junit.converters.Base64;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.FieldSource;
 // --8<-- [end:import]
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class HexDemo {
+class Base64Demo {
 
 // @formatter:off
 // --8<-- [start:test]
 
 @ParameterizedTest
-@ValueSource(strings = { "0x0A1B2C", "0A1B2C" })
-void test(@Hex byte[] bytes) {
-	assertArrayEquals(new byte[] { 0x0A, 0x1B, 0x2C }, bytes);
+@FieldSource("encoded")
+void test(@Base64 byte[] bytes) {
+	assertArrayEquals(new byte[] { 63, 63, 63 }, bytes);
 }
+
+static List<?> encoded = List.of("Pz8/", new byte[] { 80, 122, 56, 47 });
 // --8<-- [end:test]
 // @formatter:on
 

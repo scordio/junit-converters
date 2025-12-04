@@ -108,7 +108,6 @@
           <version>3.14.1</version>
           <configuration>
             <compilerArgs>
-              <compilerArg>-Xlint:all,-options</compilerArg>
               <compilerArg>-parameters</compilerArg>
               <compilerArg>-Xlint:all,-options</compilerArg>
               <!-- https://errorprone.info/docs/installation#maven -->
@@ -116,6 +115,7 @@
               <compilerArg>--should-stop=ifError=FLOW</compilerArg>
               <compilerArg>
                 -Xplugin:ErrorProne
+                -Xep:RequireExplicitNullMarking:WARN
                 -XepOpt:NullAway:OnlyNullMarked
               </compilerArg>
             </compilerArgs>
@@ -128,7 +128,7 @@
               <path>
                 <groupId>com.uber.nullaway</groupId>
                 <artifactId>nullaway</artifactId>
-                <version>0.12.12</version>
+                <version>0.12.13</version>
               </path>
             </annotationProcessorPaths>
             <failOnWarning>true</failOnWarning>
