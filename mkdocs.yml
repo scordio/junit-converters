@@ -6,6 +6,9 @@ site_description: Collection of argument converters for JUnit parameterized test
 
 site_dir: target/mkdocs
 
+# Fail with warnings
+strict: true
+
 # Repository
 repo_url: https://github.com/scordio/junit-converters
 
