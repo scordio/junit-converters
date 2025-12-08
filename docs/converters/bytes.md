@@ -27,7 +27,6 @@ The following source types and target declarations are supported.
 | `#!java String`                | `#!java @Bytes byte[]`                    | `#!java "a"` → `#!java new byte[] { 97 }`       |
 | `#!java String`                | `#!java @Bytes(charset = "UTF-8") byte[]` | `#!java "ä"` → `#!java new byte[] { -61, -92 }` |
 
-
 ## With Numbers
 
 When converting numbers, the input instance is converted into a sequence of bytes using its binary representation:
@@ -39,10 +38,10 @@ BytesDemo.java:test-numbers
 --8<--
 ```
 
-The annotation's optional `order` attribute configures the byte order to use for conversion:
+The annotation's optional `order` attribute configures the byte order to use when converting multibyte values:
 
-* `BIG_ENDIAN` (default): the bytes of a multibyte value are ordered from most significant to least significant
-* `LITTLE_ENDIAN`: the bytes of a multibyte value are ordered from least significant to most significant
+* `BIG_ENDIAN` (default): the bytes are ordered from most significant to least significant
+* `LITTLE_ENDIAN`: the bytes are ordered from least significant to most significant
 
 The following source types and target declarations are supported.
 

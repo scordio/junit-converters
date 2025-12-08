@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  * <p>
  * When converting numbers, the input instance is converted into a sequence of bytes using
  * its binary representation. The {@link #order} attribute configures the byte order to
- * use for conversion.
+ * use when converting multibyte values.
  */
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.PARAMETER, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
