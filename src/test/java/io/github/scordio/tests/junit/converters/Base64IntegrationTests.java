@@ -132,21 +132,22 @@ class Base64IntegrationTests {
 			.assertStatistics(stats -> stats.started(6).succeeded(0).failed(6))
 			.assertThatEvents()
 			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(NullPointerException.class), message("'null' is not supported"))))
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(NullPointerException.class), message("'null' is not supported"))))
 			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(ArgumentConversionException.class),
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(ArgumentConversionException.class),
 							message("Source type java.lang.Integer is not supported"))))
 			.haveExactly(2, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(IllegalArgumentException.class),
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(IllegalArgumentException.class),
 							message("Input byte[] should at least have 2 bytes for base64 bytes"))))
 			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(IllegalArgumentException.class), message("Illegal base64 character 20"))))
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(IllegalArgumentException.class), message("Illegal base64 character 20"))))
 			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class), cause(instanceOf(IllegalArgumentException.class),
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(IllegalArgumentException.class),
 							message("Last unit does not have enough valid bits"))));
 	}
 

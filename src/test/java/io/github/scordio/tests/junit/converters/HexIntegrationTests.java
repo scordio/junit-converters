@@ -85,26 +85,26 @@ class HexIntegrationTests {
 			.assertStatistics(stats -> stats.started(9).failed(9))
 			.assertThatEvents()
 			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(NullPointerException.class), message("'null' is not supported"))))
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(NullPointerException.class), message("'null' is not supported"))))
 			.haveExactly(1, finishedWithFailure( // https://github.com/junit-team/junit-framework/issues/4801
 					instanceOf(ParameterResolutionException.class),
 					message("Error converting parameter at index 0: HexArgumentConverter cannot convert objects of type [byte[]]. Only source objects of type [java.lang.String] are supported.")))
 			.haveExactly(3, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(ArgumentConversionException.class), message("Hex string must have even length"))))
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(ArgumentConversionException.class),
+							message("Hex string must have even length"))))
 			.haveExactly(2, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class), //
-					cause( //
+					instanceOf(ParameterResolutionException.class), cause( //
 							instanceOf(ArgumentConversionException.class),
 							message("Invalid hex character at position 0"))))
 			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class), //
-					cause( //
+					instanceOf(ParameterResolutionException.class), cause( //
 							instanceOf(ArgumentConversionException.class),
 							message("Invalid hex character at position 1"))))
 			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class), cause(instanceOf(ArgumentConversionException.class),
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(ArgumentConversionException.class),
 							message("Hex string must contain at least one hex digit after '0x' prefix"))));
 	}
 

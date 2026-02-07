@@ -118,10 +118,11 @@ class BytesIntegrationTests {
 			.assertStatistics(stats -> stats.started(2).failed(2))
 			.assertThatEvents()
 			.haveExactly(1, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class),
-					cause(instanceOf(NullPointerException.class), message("'null' is not supported"))))
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(NullPointerException.class), message("'null' is not supported"))))
 			.haveExactly(1, finishedWithFailure( // https://github.com/junit-team/junit-framework/issues/4801
-					instanceOf(ParameterResolutionException.class), cause(instanceOf(ArgumentConversionException.class),
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(ArgumentConversionException.class),
 							message("Source type byte[] is not supported"))));
 	}
 
