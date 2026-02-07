@@ -15,6 +15,7 @@
  */
 package io.github.scordio.tests.junit.converters;
 
+import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.testkit.engine.EngineExecutionResults;
 import org.junit.platform.testkit.engine.EngineTestKit;
 
@@ -24,7 +25,15 @@ import static org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder.r
 class JupiterEngineTestKit {
 
 	static EngineExecutionResults executeTestsForClass(Class<?> testClass) {
-		return EngineTestKit.execute("junit-jupiter", request().selectors(selectClass(testClass)).build());
+		return executeTestsFor(selectClass(testClass));
+	}
+
+	static EngineExecutionResults executeTestsForClass(Class<?> testClass, ClassLoader classLoader) {
+		return executeTestsFor(selectClass(classLoader, testClass.getName()));
+	}
+
+	private static EngineExecutionResults executeTestsFor(DiscoverySelector... selectors) {
+		return EngineTestKit.execute("junit-jupiter", request().selectors(selectors).build());
 	}
 
 }
