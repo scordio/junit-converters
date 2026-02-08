@@ -17,15 +17,27 @@ package io.github.scordio.tests.junit.converters;
 
 import io.github.scordio.junit.converters.SpringConversion;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.FieldSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static io.github.scordio.tests.junit.converters.JupiterEngineTestKit.executeTestsForClass;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.junit.platform.testkit.engine.EventConditions.finishedWithFailure;
+import static org.junit.platform.testkit.engine.TestExecutionResultConditions.cause;
+import static org.junit.platform.testkit.engine.TestExecutionResultConditions.instanceOf;
+import static org.junit.platform.testkit.engine.TestExecutionResultConditions.message;
 
 class SpringConversionIntegrationTests {
 
@@ -101,6 +113,72 @@ class SpringConversionIntegrationTests {
 		}
 
 		static List<?> string_to_list = List.of(arguments("123, 456", List.of(123, 456)));
+
+	}
+
+	@Test
+	void should_fail_without_spring_core_in_the_classpath() {
+		ClassLoader classLoader = new SpringFilteringClassLoader();
+
+		executeTestsForClass(MissingSpringCoreTestCase.class, classLoader).testEvents()
+			.assertStatistics(stats -> stats.started(1).failed(1))
+			.assertThatEvents()
+			.haveExactly(1, finishedWithFailure( //
+					instanceOf(ParameterResolutionException.class), cause( //
+							instanceOf(NoClassDefFoundError.class),
+							message("org/springframework/core/convert/ConversionService"))));
+	}
+
+	static class MissingSpringCoreTestCase {
+
+		@ParameterizedTest
+		@ValueSource(strings = "123, 456")
+		void test(@SuppressWarnings("unused") @SpringConversion List<Integer> list) {
+			// never called
+		}
+
+	}
+
+	private static class SpringFilteringClassLoader extends URLClassLoader {
+
+		private static final Set<Class<?>> TARGET_CLASSES = Set.of( //
+				MissingSpringCoreTestCase.class, SpringConversion.class);
+
+		private static final Set<String> TARGET_PACKAGES = TARGET_CLASSES.stream()
+			.map(Class::getPackageName)
+			.collect(Collectors.toSet());
+
+		private static final URL[] CLASSPATH_URLS = TARGET_CLASSES.stream()
+			.map(Class::getProtectionDomain)
+			.map(ProtectionDomain::getCodeSource)
+			.map(CodeSource::getLocation)
+			.toArray(URL[]::new);
+
+		private static final String SPRING_CORE_PACKAGE = "org.springframework.core";
+
+		private SpringFilteringClassLoader() {
+			super(CLASSPATH_URLS);
+		}
+
+		@Override
+		public Class<?> loadClass(String name) throws ClassNotFoundException {
+			synchronized (getClassLoadingLock(name)) {
+				Class<?> loadedClass = findLoadedClass(name);
+				if (loadedClass != null) {
+					return loadedClass;
+				}
+
+				if (TARGET_PACKAGES.stream().anyMatch(name::startsWith)) {
+					return findClass(name);
+				}
+
+				if (name.startsWith(SPRING_CORE_PACKAGE)) {
+					throw new ClassNotFoundException();
+				}
+
+				return super.loadClass(name);
+			}
+		}
 
 	}
 
