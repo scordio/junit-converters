@@ -55,7 +55,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        junit-framework: [5.14.3-SNAPSHOT, 6.0.2, 6.1.0-SNAPSHOT]
+        junit-framework: [6.1.0-SNAPSHOT]
     runs-on: ubuntu-latest
 
     steps:
@@ -75,7 +75,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        spring-framework: [5.3.39, 6.2.15]
+        spring-framework: [6.2.15]
     runs-on: ubuntu-latest
 
     steps:
