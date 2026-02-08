@@ -118,9 +118,7 @@ class SpringConversionIntegrationTests {
 
 	@Test
 	void should_fail_without_spring_core_in_the_classpath() {
-		ClassLoader classLoader = new SpringFilteringClassLoader();
-
-		executeTestsForClass(MissingSpringCoreTestCase.class, classLoader).testEvents()
+		executeTestsForClass(MissingSpringCoreTestCase.class, new SpringFilteringClassLoader()).testEvents()
 			.assertStatistics(stats -> stats.started(1).failed(1))
 			.assertThatEvents()
 			.haveExactly(1, finishedWithFailure( //
@@ -141,20 +139,23 @@ class SpringConversionIntegrationTests {
 
 	private static class SpringFilteringClassLoader extends URLClassLoader {
 
-		private static final Set<Class<?>> TARGET_CLASSES = Set.of( //
-				MissingSpringCoreTestCase.class, SpringConversion.class);
-
-		private static final Set<String> TARGET_PACKAGES = TARGET_CLASSES.stream()
-			.map(Class::getPackageName)
-			.collect(Collectors.toSet());
-
-		private static final URL[] CLASSPATH_URLS = TARGET_CLASSES.stream()
-			.map(Class::getProtectionDomain)
-			.map(ProtectionDomain::getCodeSource)
-			.map(CodeSource::getLocation)
-			.toArray(URL[]::new);
-
 		private static final String SPRING_CORE_PACKAGE = "org.springframework.core";
+
+		private static final Set<String> TARGET_PACKAGES;
+
+		private static final URL[] CLASSPATH_URLS;
+
+		static {
+			Set<Class<?>> targetClasses = Set.of(MissingSpringCoreTestCase.class, SpringConversion.class);
+
+			TARGET_PACKAGES = targetClasses.stream().map(Class::getPackageName).collect(Collectors.toSet());
+
+			CLASSPATH_URLS = targetClasses.stream()
+				.map(Class::getProtectionDomain)
+				.map(ProtectionDomain::getCodeSource)
+				.map(CodeSource::getLocation)
+				.toArray(URL[]::new);
+		}
 
 		private SpringFilteringClassLoader() {
 			super(CLASSPATH_URLS);
