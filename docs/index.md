@@ -4,7 +4,7 @@ JUnit Converters is a collection of ready-to-use argument converters designed to
 [JUnit Framework](https://junit.org/).
 
 It uses the framework's
-[explicit argument conversion](https://docs.junit.org/current/user-guide/#writing-tests-parameterized-tests-argument-conversion-explicit)
+[explicit argument conversion](https://docs.junit.org/current/writing-tests/parameterized-classes-and-tests.html#argument-conversion-explicit)
 mechanism to provide converters for common data types and patterns.
 This simplifies the process of transforming input arguments into the types required by the test, allowing you to write
 clear test cases without clutter.
