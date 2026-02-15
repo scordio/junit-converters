@@ -15,15 +15,22 @@ SpringConversionDemo.java:test
 --8<--
 ```
 
-The converter delegates the conversion to the
-[`DefaultConversionService`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/convert/support/DefaultConversionService.html),
-which provides a wide range of built-in converters for common Java types, including:
+The Spring conversion service provides a wide range of built-in converters for common Java types, including:
 
 * Primitives and their wrappers
 * Arrays
 * Collections (`List`, `Set`, `Map`, etc.)
 * Enums
 * Common value types (`UUID`, `Currency`, `Locale`, etc.)
+
+In addition, the Spring
+[format annotations](https://docs.spring.io/spring-framework/reference/core/validation/format.html#format-annotations-api)
+are also supported:
+
+* `@NumberFormat` for formatting `Number` values such as `Double` and `Long`
+* `@DurationFormat` for formatting `java.time.Duration` values in ISO-8601 and simplified styles
+* `@DateTimeFormat` for formatting values such as `java.util.Date`, `java.util.Calendar`, and `Long` (for millisecond
+  timestamps) as well as JSR-310 `java.time` types
 
 ## Requirements
 
@@ -48,6 +55,25 @@ The annotation requires `spring-core` available in the test classpath:
 
 However, declaring this dependency is generally not required in a Spring application.
 
+To use the Spring format annotations, `spring-context` must also be available:
+
+=== ":simple-apachemaven: Maven"
+
+    ``` xml
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring-framework.version}</version>
+      <scope>test</scope>
+    </dependency>
+    ```
+
+=== ":simple-gradle: Gradle"
+
+    ``` kotlin
+    testImplementation("org.springframework:spring-context:${springFrameworkVersion}")
+    ```
+
 ## Examples
 
 The following sections demonstrate some of the possible conversions. For a complete list of supported conversions,
@@ -59,8 +85,7 @@ refer to the Spring Framework reference documentation.
 |-------------------|----------------------------------|--------------------------------------------------------------------------|
 | `#!java String[]` | `#!java @SpringConversion int[]` | `#!java new String[] { "123", "456" }` → `#!java new int[] { 123, 456 }` |
 
-
-### Array → Collection
+### Array → List
 
 | Source Type           | Target Declaration                       | Example                                                             |
 |-----------------------|------------------------------------------|---------------------------------------------------------------------|
@@ -84,7 +109,7 @@ refer to the Spring Framework reference documentation.
 | `#!java Integer[]` | `#!java @SpringConversion String` | `#!java new Integer[] { 123, 456 }` → `#!java "123,456"`    |
 | `#!java String[]`  | `#!java @SpringConversion String` | `#!java new String[] { "123", "456" }` → `#!java "123,456"` |
 
-### Collection → Collection
+### List → List
 
 | Source Type           | Target Declaration                       | Example                                                     |
 |-----------------------|------------------------------------------|-------------------------------------------------------------|
@@ -94,9 +119,27 @@ refer to the Spring Framework reference documentation.
 
 | Source Type                  | Target Declaration                              | Example                                                                           |
 |------------------------------|-------------------------------------------------|-----------------------------------------------------------------------------------|
-| `#!java Map<String, String>` | `#!java @SpringConversion Map<Integer, Double>` | `#!java Map.of("1", "123.4", "2", "567.8")` → `#!java Map.of(1, 123.4, 2, 567.8)` |
+| `#!java Map<String, String>` | `#!java @SpringConversion Map<Integer, Double>` | `#!java Map.of("1", "123.4", "2", "234.5")` → `#!java Map.of(1, 123.4, 2, 234.5)` |
 
-### String → Collection
+### String → Date
+
+| Source Type     | Target Declaration                                          | Example                                      |
+|-----------------|-------------------------------------------------------------|----------------------------------------------|
+| `#!java String` | `#!java @SpringConversion @DateTimeFormat(iso = DATE) Date` | `#!java "1970-01-01"` → `#!java new Date(0)` |
+
+### String → Double
+
+| Source Type     | Target Declaration                                               | Example                        |
+|-----------------|------------------------------------------------------------------|--------------------------------|
+| `#!java String` | `#!java @SpringConversion @NumberFormat(style = PERCENT) double` | `#!java "42%"` → `#!java 0.42` |
+
+### String → Duration
+
+| Source Type     | Target Declaration                                                  | Example                                          |
+|-----------------|---------------------------------------------------------------------|--------------------------------------------------|
+| `#!java String` | `#!java @SpringConversion @DurationFormat(style = SIMPLE) Duration` | `#!java "42ms"` → `#!java Duration.ofMillis(42)` |
+
+### String → List
 
 | Source Type           | Target Declaration                       | Example                                                             |
 |-----------------------|------------------------------------------|---------------------------------------------------------------------|

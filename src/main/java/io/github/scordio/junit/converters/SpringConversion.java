@@ -30,9 +30,24 @@ import java.lang.annotation.Target;
  * <p>
  * <strong>Note:</strong> The annotation requires {@code org.springframework:spring-core}
  * available in the test classpath, which is generally the case for Spring applications.
+ * <p>
+ * If {@code org.springframework:spring-context} is also available in the test classpath,
+ * the Spring {@link org.springframework.format.annotation format annotations} are also
+ * supported:
+ * <ul>
+ * <li>{@link org.springframework.format.annotation.NumberFormat @NumberFormat} for
+ * formatting {@code Number} values such as {@code Double} and {@code Long}</li>
+ * <li>{@link org.springframework.format.annotation.DurationFormat @DurationFormat} for
+ * formatting {@link java.time.Duration} values in ISO-8601 and simplified styles</li>
+ * <li>{@link org.springframework.format.annotation.DateTimeFormat @DateTimeFormat} for
+ * formatting values such as {@link java.util.Date}, {@link java.util.Calendar}, and
+ * {@code Long} (for millisecond timestamps) as well as JSR-310 {@link java.time}
+ * types</li>
+ * </ul>
  *
  * @see org.springframework.core.convert.ConversionService
  * @see org.springframework.core.convert.support.DefaultConversionService
+ * @see org.springframework.format.support.DefaultFormattingConversionService
  */
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.PARAMETER, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)

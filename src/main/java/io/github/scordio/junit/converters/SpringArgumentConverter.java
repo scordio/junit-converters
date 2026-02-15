@@ -27,7 +27,18 @@ import org.springframework.core.convert.support.DefaultConversionService;
 
 class SpringArgumentConverter implements ArgumentConverter {
 
-	private static final ConversionService CONVERSION_SERVICE = new DefaultConversionService();
+	private static final ConversionService CONVERSION_SERVICE = createConversionService();
+
+	private static ConversionService createConversionService() {
+		try {
+			Class<?> conversionService = Class
+				.forName("org.springframework.format.support.DefaultFormattingConversionService");
+			return (ConversionService) conversionService.getConstructor().newInstance();
+		}
+		catch (ReflectiveOperationException e) {
+			return new DefaultConversionService();
+		}
+	}
 
 	@Override
 	public @Nullable Object convert(@Nullable Object source, ParameterContext context)
