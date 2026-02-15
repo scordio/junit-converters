@@ -37,7 +37,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Dependency versions -->
     <junit-framework.version>5.14.2</junit-framework.version>
-    <spring-framework.version>7.0.3</spring-framework.version>
+    <spring-framework.version>7.0.4</spring-framework.version>
   </properties>
 
   <dependencyManagement>
@@ -66,7 +66,7 @@
     <!-- Optional -->
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
+      <artifactId>spring-context</artifactId>
       <version>${spring-framework.version}</version>
       <optional>true</optional>
     </dependency>

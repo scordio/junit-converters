@@ -25,6 +25,7 @@ module io.github.scordio.junit.converters {
 
 	requires static transitive org.jspecify;
 
+	requires static spring.context;
 	requires static spring.core;
 
 	requires org.junit.jupiter.params;
