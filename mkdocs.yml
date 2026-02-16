@@ -11,6 +11,7 @@ strict: true
 
 # Repository
 repo_url: https://github.com/scordio/junit-converters
+edit_uri: edit/main/docs/
 
 # Copyright
 copyright: Copyright &copy; 2025 Stefano Cordio
@@ -19,11 +20,13 @@ copyright: Copyright &copy; 2025 Stefano Cordio
 theme:
   name: material
   features:
+    - content.action.edit
     - content.code.copy
     - content.tabs.link
     - navigation.sections
     - toc.integrate
   icon:
+    edit: material/pencil
     repo: fontawesome/brands/github
   favicon: assets/images/logo.png
   logo: assets/images/logo-white.png
