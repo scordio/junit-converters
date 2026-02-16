@@ -17,17 +17,11 @@ package io.github.scordio.tests.junit.converters;
 
 import io.github.scordio.junit.converters.SpringConversion;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.AfterAllCallback;
-import org.junit.jupiter.api.extension.BeforeAllCallback;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.FieldSource;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.ConverterNotFoundException;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DurationFormat;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -36,11 +30,12 @@ import java.net.URLClassLoader;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.time.Duration;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import static io.github.scordio.tests.junit.converters.JupiterEngineTestKit.executeTestsForClass;
@@ -50,7 +45,6 @@ import static org.junit.platform.testkit.engine.EventConditions.finishedWithFail
 import static org.junit.platform.testkit.engine.TestExecutionResultConditions.cause;
 import static org.junit.platform.testkit.engine.TestExecutionResultConditions.instanceOf;
 import static org.junit.platform.testkit.engine.TestExecutionResultConditions.message;
-import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 import static org.springframework.format.annotation.DurationFormat.Style.SIMPLE;
 import static org.springframework.format.annotation.NumberFormat.Style.PERCENT;
 
@@ -58,27 +52,25 @@ class SpringConversionIntegrationTests {
 
 	@Test
 	void should_convert_supported_values_without_format_annotations() {
-		executeTestsForClass(ValuesWithoutFormatAnnotationsTestCase.class).testEvents()
+		executeTestsForClass(SpringCoreTestCase.class).testEvents()
 			.assertStatistics(stats -> stats.started(13).succeeded(13));
 	}
 
 	@Test
 	void should_convert_supported_values_with_format_annotations() {
-		executeTestsForClass(ValuesWithFormatAnnotationsTestCase.class).testEvents()
-			.assertStatistics(stats -> stats.started(3).succeeded(3));
+		executeTestsForClass(SpringFormatTestCase.class).testEvents()
+			.assertStatistics(stats -> stats.started(4).succeeded(4));
 	}
 
 	@Test
 	void should_convert_supported_values_without_format_annotations_if_org_springframework_format_is_not_in_the_classpath() {
-		executeTestsForClass(ValuesWithoutFormatAnnotationsTestCase.class, new SpringFormatFilteringClassLoader())
-			.testEvents()
+		executeTestsForClass(SpringCoreTestCase.class, new SpringFormatFilteringClassLoader()).testEvents()
 			.assertStatistics(stats -> stats.started(13).succeeded(13));
 	}
 
 	@Test
 	void should_fail_without_format_annotations_if_org_springframework_core_is_not_in_the_classpath() {
-		executeTestsForClass(ValuesWithoutFormatAnnotationsTestCase.class, new SpringCoreFilteringClassLoader())
-			.testEvents()
+		executeTestsForClass(SpringCoreTestCase.class, new SpringCoreFilteringClassLoader()).testEvents()
 			.assertStatistics(stats -> stats.started(13).failed(13))
 			.assertThatEvents()
 			.haveExactly(13, finishedWithFailure( //
@@ -89,11 +81,10 @@ class SpringConversionIntegrationTests {
 
 	@Test
 	void should_fail_with_format_annotations_if_org_springframework_core_is_not_in_the_classpath() {
-		executeTestsForClass(ValuesWithFormatAnnotationsTestCase.class, new SpringCoreFilteringClassLoader())
-			.testEvents()
-			.assertStatistics(stats -> stats.started(3).failed(3))
+		executeTestsForClass(SpringFormatTestCase.class, new SpringCoreFilteringClassLoader()).testEvents()
+			.assertStatistics(stats -> stats.started(4).failed(4))
 			.assertThatEvents()
-			.haveExactly(3, finishedWithFailure( //
+			.haveExactly(4, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class), cause( //
 							instanceOf(NoClassDefFoundError.class),
 							message("org/springframework/core/convert/ConversionService"))));
@@ -101,18 +92,17 @@ class SpringConversionIntegrationTests {
 
 	@Test
 	void should_fail_with_format_annotations_if_org_springframework_format_is_not_in_the_classpath() {
-		executeTestsForClass(ValuesWithFormatAnnotationsTestCase.class, new SpringFormatFilteringClassLoader())
-			.testEvents()
-			.assertStatistics(stats -> stats.started(3).failed(3))
+		executeTestsForClass(SpringFormatTestCase.class, new SpringFormatFilteringClassLoader()).testEvents()
+			.assertStatistics(stats -> stats.started(4).failed(4))
 			.assertThatEvents()
-			.haveExactly(2, finishedWithFailure( //
-					instanceOf(ParameterResolutionException.class), cause(instanceOf(ConversionFailedException.class))))
 			.haveExactly(1, finishedWithFailure( //
+					instanceOf(ParameterResolutionException.class), cause(instanceOf(ConversionFailedException.class))))
+			.haveExactly(3, finishedWithFailure( //
 					instanceOf(ParameterResolutionException.class),
 					cause(instanceOf(ConverterNotFoundException.class))));
 	}
 
-	static class ValuesWithoutFormatAnnotationsTestCase {
+	static class SpringCoreTestCase {
 
 		@ParameterizedTest
 		@FieldSource
@@ -124,90 +114,97 @@ class SpringConversionIntegrationTests {
 
 		@ParameterizedTest
 		@FieldSource
-		void array_to_list(@SpringConversion List<Integer> list, List<Integer> expected) {
+		void array_to_List(@SpringConversion List<Integer> list, List<Integer> expected) {
 			assertThat(list).isEqualTo(expected);
 		}
 
-		static List<?> array_to_list = List.of( //
+		static List<?> array_to_List = List.of( //
 				arguments(new int[] { 123, 456 }, List.of(123, 456)),
 				arguments(new Integer[] { 123, 456 }, List.of(123, 456)),
 				arguments(new String[] { "123", "456" }, List.of(123, 456)));
 
 		@ParameterizedTest
 		@FieldSource
-		void array_to_object(@SpringConversion int value, int expected) {
+		void array_to_Object(@SpringConversion int value, int expected) {
 			assertThat(value).isEqualTo(expected);
 		}
 
-		static List<?> array_to_object = List.of( //
+		static List<?> array_to_Object = List.of( //
 				arguments(new int[] { 123, 456 }, 123), //
 				arguments(new Integer[] { 123, 456 }, 123), //
 				arguments(new String[] { "123", "456" }, 123));
 
 		@ParameterizedTest
 		@FieldSource
-		void array_to_string(@SpringConversion String string, String expected) {
+		void array_to_String(@SpringConversion String string, String expected) {
 			assertThat(string).isEqualTo(expected);
 		}
 
-		static List<?> array_to_string = List.of( //
+		static List<?> array_to_String = List.of( //
 				arguments(new int[] { 123, 456 }, "123,456"), //
 				arguments(new Integer[] { 123, 456 }, "123,456"), //
 				arguments(new String[] { "123", "456" }, "123,456"));
 
 		@ParameterizedTest
 		@FieldSource
-		void list_to_list(@SpringConversion List<Integer> list, List<Integer> expected) {
+		void List_to_List(@SpringConversion List<Integer> list, List<Integer> expected) {
 			assertThat(list).isEqualTo(expected);
 		}
 
-		static List<?> list_to_list = List.of(arguments(List.of("123", "456"), List.of(123, 456)));
+		static List<?> List_to_List = List.of(arguments(List.of("123", "456"), List.of(123, 456)));
 
 		@ParameterizedTest
 		@FieldSource
-		void map_to_map(@SpringConversion Map<Integer, Double> map, Map<Integer, Double> expected) {
+		void Map_to_Map(@SpringConversion Map<Integer, Double> map, Map<Integer, Double> expected) {
 			assertThat(map).isEqualTo(expected);
 		}
 
-		static List<?> map_to_map = List.of(arguments(Map.of("1", "123.4", "2", "234.5"), Map.of(1, 123.4, 2, 234.5)));
+		static List<?> Map_to_Map = List.of(arguments(Map.of("1", "123.4", "2", "234.5"), Map.of(1, 123.4, 2, 234.5)));
 
 		@ParameterizedTest
 		@FieldSource
-		void string_to_list(@SpringConversion List<Integer> list, List<Integer> expected) {
+		void String_to_List(@SpringConversion List<Integer> list, List<Integer> expected) {
 			assertThat(list).isEqualTo(expected);
 		}
 
-		static List<?> string_to_list = List.of(arguments("123, 456", List.of(123, 456)));
+		static List<?> String_to_List = List.of(arguments("123, 456", List.of(123, 456)));
 
 	}
 
-	@ExtendWith(UTCTimeZoneExtension.class) // https://github.com/junit-team/junit-framework/issues/4727
-	static class ValuesWithFormatAnnotationsTestCase {
+	static class SpringFormatTestCase {
 
 		@ParameterizedTest
 		@FieldSource
-		void string_to_date(@SpringConversion @DateTimeFormat(iso = DATE) Date value, Date expected) {
+		void String_to_Double(@SpringConversion @NumberFormat(style = PERCENT) double value, double expected) {
 			assertThat(value).isEqualTo(expected);
 		}
 
-		@SuppressWarnings("JavaUtilDate")
-		static List<?> string_to_date = List.of(arguments("1970-01-01", new Date(0)));
+		static List<?> String_to_Double = List.of(arguments("42%", 0.42));
 
 		@ParameterizedTest
 		@FieldSource
-		void string_to_double(@SpringConversion @NumberFormat(style = PERCENT) double value, double expected) {
+		void String_to_Duration(@SpringConversion @DurationFormat(style = SIMPLE) Duration value, Duration expected) {
 			assertThat(value).isEqualTo(expected);
 		}
 
-		static List<?> string_to_double = List.of(arguments("42%", 0.42));
+		static List<?> String_to_Duration = List.of(arguments("42ms", Duration.ofMillis(42)));
 
 		@ParameterizedTest
 		@FieldSource
-		void string_to_duration(@SpringConversion @DurationFormat(style = SIMPLE) Duration value, Duration expected) {
+		void String_to_LocalDate(@SpringConversion LocalDate value, LocalDate expected) {
 			assertThat(value).isEqualTo(expected);
 		}
 
-		static List<?> string_to_duration = List.of(arguments("42ms", Duration.ofMillis(42)));
+		static List<?> String_to_LocalDate = List.of(arguments("1970-01-01", LocalDate.EPOCH));
+
+		@ParameterizedTest
+		@FieldSource
+		void String_to_LocalDateTime(@SpringConversion LocalDateTime value, LocalDateTime expected) {
+			assertThat(value).isEqualTo(expected);
+		}
+
+		static List<?> String_to_LocalDateTime = List.of( //
+				arguments("1970-01-01T00:00:00", LocalDateTime.of(LocalDate.EPOCH, LocalTime.MIDNIGHT)));
 
 	}
 
@@ -277,26 +274,6 @@ class SpringConversionIntegrationTests {
 		}
 
 		abstract void filterClass(String name) throws ClassNotFoundException;
-
-	}
-
-	private static class UTCTimeZoneExtension implements BeforeAllCallback, AfterAllCallback {
-
-		private static final Namespace NAMESPACE = Namespace.create(UTCTimeZoneExtension.class);
-
-		private static final String DEFAULT_KEY = "DefaultTimeZone";
-
-		@Override
-		public void beforeAll(ExtensionContext context) {
-			context.getStore(NAMESPACE).put(DEFAULT_KEY, TimeZone.getDefault());
-			TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-		}
-
-		@Override
-		public void afterAll(ExtensionContext context) {
-			TimeZone defaultTimeZone = context.getStore(NAMESPACE).get(DEFAULT_KEY, TimeZone.class);
-			TimeZone.setDefault(defaultTimeZone);
-		}
 
 	}
 

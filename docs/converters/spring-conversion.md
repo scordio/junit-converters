@@ -121,12 +121,6 @@ refer to the Spring Framework reference documentation.
 |------------------------------|-------------------------------------------------|-----------------------------------------------------------------------------------|
 | `#!java Map<String, String>` | `#!java @SpringConversion Map<Integer, Double>` | `#!java Map.of("1", "123.4", "2", "234.5")` → `#!java Map.of(1, 123.4, 2, 234.5)` |
 
-### String → Date
-
-| Source Type     | Target Declaration                                          | Example                                      |
-|-----------------|-------------------------------------------------------------|----------------------------------------------|
-| `#!java String` | `#!java @SpringConversion @DateTimeFormat(iso = DATE) Date` | `#!java "1970-01-01"` → `#!java new Date(0)` |
-
 ### String → Double
 
 | Source Type     | Target Declaration                                               | Example                        |
@@ -144,3 +138,15 @@ refer to the Spring Framework reference documentation.
 | Source Type           | Target Declaration                       | Example                                                             |
 |-----------------------|------------------------------------------|---------------------------------------------------------------------|
 | `#!java String`       | `#!java @SpringConversion List<Integer>` | `#!java "123, 456"` → `#!java List.of(123, 456)`                    |
+
+### String → LocalDate
+
+| Source Type     | Target Declaration                   | Example                                          |
+|-----------------|--------------------------------------|--------------------------------------------------|
+| `#!java String` | `#!java @SpringConversion LocalDate` | `#!java "1970-01-01"` → `#!java LocalDate.EPOCH` |
+
+### String → LocalDateTime
+
+| Source Type     | Target Declaration                       | Example                                                                                         |
+|-----------------|------------------------------------------|-------------------------------------------------------------------------------------------------|
+| `#!java String` | `#!java @SpringConversion LocalDateTime` | `#!java "1970-01-01T00:00:00"` → `#!java LocalDateTime.of(LocalDate.EPOCH, LocalTime.MIDNIGHT)` |
