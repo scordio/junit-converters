@@ -37,7 +37,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Dependency versions -->
     <junit-framework.version>5.14.3</junit-framework.version>
-    <spring-framework.version>7.0.4</spring-framework.version>
+    <spring-framework.version>7.0.5</spring-framework.version>
   </properties>
 
   <dependencyManagement>
