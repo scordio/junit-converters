@@ -29,6 +29,7 @@ module io.github.scordio.junit.converters {
 	requires static spring.core;
 
 	requires org.junit.jupiter.params;
+	requires org.junit.platform.commons;
 
 	exports io.github.scordio.junit.converters;
 
