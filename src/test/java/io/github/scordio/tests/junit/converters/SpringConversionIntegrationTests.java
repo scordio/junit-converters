@@ -50,6 +50,10 @@ import static org.springframework.format.annotation.NumberFormat.Style.PERCENT;
 
 class SpringConversionIntegrationTests {
 
+	private static final String SPRING_CORE_PACKAGE = "org.springframework.core";
+
+	private static final String SPRING_FORMAT_PACKAGE = "org.springframework.format";
+
 	@Test
 	void should_convert_supported_values_without_format_annotations() {
 		executeTestsForClass(SpringCoreTestCase.class).testEvents()
@@ -64,13 +68,13 @@ class SpringConversionIntegrationTests {
 
 	@Test
 	void should_convert_supported_values_without_format_annotations_if_org_springframework_format_is_not_in_the_classpath() {
-		executeTestsForClass(SpringCoreTestCase.class, new SpringFormatFilteringClassLoader()).testEvents()
+		executeTestsForClass(SpringCoreTestCase.class, new FilteringClassLoader(SPRING_FORMAT_PACKAGE)).testEvents()
 			.assertStatistics(stats -> stats.started(13).succeeded(13));
 	}
 
 	@Test
 	void should_fail_without_format_annotations_if_org_springframework_core_is_not_in_the_classpath() {
-		executeTestsForClass(SpringCoreTestCase.class, new SpringCoreFilteringClassLoader()).testEvents()
+		executeTestsForClass(SpringCoreTestCase.class, new FilteringClassLoader(SPRING_CORE_PACKAGE)).testEvents()
 			.assertStatistics(stats -> stats.started(13).failed(13))
 			.assertThatEvents()
 			.haveExactly(13, finishedWithFailure( //
@@ -81,7 +85,7 @@ class SpringConversionIntegrationTests {
 
 	@Test
 	void should_fail_with_format_annotations_if_org_springframework_core_is_not_in_the_classpath() {
-		executeTestsForClass(SpringFormatTestCase.class, new SpringCoreFilteringClassLoader()).testEvents()
+		executeTestsForClass(SpringFormatTestCase.class, new FilteringClassLoader(SPRING_CORE_PACKAGE)).testEvents()
 			.assertStatistics(stats -> stats.started(4).failed(4))
 			.assertThatEvents()
 			.haveExactly(4, finishedWithFailure( //
@@ -92,7 +96,7 @@ class SpringConversionIntegrationTests {
 
 	@Test
 	void should_fail_with_format_annotations_if_org_springframework_format_is_not_in_the_classpath() {
-		executeTestsForClass(SpringFormatTestCase.class, new SpringFormatFilteringClassLoader()).testEvents()
+		executeTestsForClass(SpringFormatTestCase.class, new FilteringClassLoader(SPRING_FORMAT_PACKAGE)).testEvents()
 			.assertStatistics(stats -> stats.started(4).failed(4))
 			.assertThatEvents()
 			.haveExactly(1, finishedWithFailure( //
@@ -208,29 +212,7 @@ class SpringConversionIntegrationTests {
 
 	}
 
-	private static class SpringCoreFilteringClassLoader extends FilteringClassLoader {
-
-		@Override
-		void filterClass(String name) throws ClassNotFoundException {
-			if (name.startsWith("org.springframework.core")) {
-				throw new ClassNotFoundException();
-			}
-		}
-
-	}
-
-	private static class SpringFormatFilteringClassLoader extends FilteringClassLoader {
-
-		@Override
-		void filterClass(String name) throws ClassNotFoundException {
-			if (name.startsWith("org.springframework.format")) {
-				throw new ClassNotFoundException();
-			}
-		}
-
-	}
-
-	private static abstract class FilteringClassLoader extends URLClassLoader {
+	private static class FilteringClassLoader extends URLClassLoader {
 
 		private static final Set<String> TARGET_PACKAGES;
 
@@ -248,8 +230,11 @@ class SpringConversionIntegrationTests {
 				.toArray(URL[]::new);
 		}
 
-		private FilteringClassLoader() {
+		private final String filteredPackage;
+
+		private FilteringClassLoader(String filteredPackage) {
 			super(CLASSPATH_URLS);
+			this.filteredPackage = filteredPackage;
 		}
 
 		@Override
@@ -267,13 +252,13 @@ class SpringConversionIntegrationTests {
 					return findClass(name);
 				}
 
-				filterClass(name);
+				if (name.startsWith(filteredPackage)) {
+					throw new ClassNotFoundException();
+				}
 
 				return super.loadClass(name);
 			}
 		}
-
-		abstract void filterClass(String name) throws ClassNotFoundException;
 
 	}
 
