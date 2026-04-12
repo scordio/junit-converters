@@ -1,8 +1,8 @@
 ---
 template: redirect.html
 
-location: https://javadoc.io/doc/io.github.scordio/junit-converters/
+location: ../api/
 
 title: Javadoc
-icon: octicons/link-external-16
+icon: fontawesome/brands/java
 ---
