@@ -20,10 +20,9 @@ import io.github.scordio.junit.converters.SpringConversion;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 // --8<-- [end:import]
-
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SpringConversionDemo {
 
@@ -33,7 +32,7 @@ class SpringConversionDemo {
 @ParameterizedTest
 @ValueSource(strings = "123, 456")
 void test(@SpringConversion List<Integer> ints) {
-	assertEquals(List.of(123, 456), ints);
+	assertThat(ints).containsExactly(123, 456);
 }
 // --8<-- [end:test]
 // @formatter:on

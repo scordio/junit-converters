@@ -21,7 +21,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 // --8<-- [end:import]
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BytesDemo {
 
@@ -33,7 +33,7 @@ class BytesDemo {
 @ParameterizedTest
 @ValueSource(strings = "value")
 void test(@Bytes byte[] bytes) {
-	assertArrayEquals(new byte[] { 118, 97, 108, 117, 101 }, bytes);
+	assertThat(bytes).containsExactly(118, 97, 108, 117, 101);
 }
 // --8<-- [end:test-strings]
 // @formatter:on
@@ -48,7 +48,7 @@ void test(@Bytes byte[] bytes) {
 @ParameterizedTest
 @ValueSource(ints = 0x12345678)
 void test(@Bytes byte[] bytes) {
-	assertArrayEquals(new byte[] { 0x12, 0x34, 0x56, 0x78 }, bytes);
+	assertThat(bytes).containsExactly(0x12, 0x34, 0x56, 0x78);
 }
 // --8<-- [end:test-numbers]
 // @formatter:on

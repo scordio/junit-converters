@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@NullUnmarked
+@NullMarked
 package io.github.scordio.demo;
 
-import org.jspecify.annotations.NullUnmarked;
+import org.jspecify.annotations.NullMarked;

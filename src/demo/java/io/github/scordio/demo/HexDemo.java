@@ -21,7 +21,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 // --8<-- [end:import]
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class HexDemo {
 
@@ -31,7 +31,7 @@ class HexDemo {
 @ParameterizedTest
 @ValueSource(strings = { "0x0A1B2C", "0A1B2C" })
 void test(@Hex byte[] bytes) {
-	assertArrayEquals(new byte[] { 0x0A, 0x1B, 0x2C }, bytes);
+	assertThat(bytes).containsExactly(0x0A, 0x1B, 0x2C);
 }
 // --8<-- [end:test]
 // @formatter:on

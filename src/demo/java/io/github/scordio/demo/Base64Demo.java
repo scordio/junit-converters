@@ -23,7 +23,7 @@ import org.junit.jupiter.params.provider.FieldSource;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class Base64Demo {
 
@@ -33,7 +33,7 @@ class Base64Demo {
 @ParameterizedTest
 @FieldSource("encoded")
 void test(@Base64 byte[] bytes) {
-	assertArrayEquals(new byte[] { 63, 63, 63 }, bytes);
+	assertThat(bytes).containsExactly(63, 63, 63);
 }
 
 static List<?> encoded = List.of("Pz8/", new byte[] { 80, 122, 56, 47 });
