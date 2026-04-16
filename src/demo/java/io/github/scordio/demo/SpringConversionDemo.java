@@ -30,9 +30,9 @@ class SpringConversionDemo {
 // --8<-- [start:test]
 
 @ParameterizedTest
-@ValueSource(strings = "123, 456")
+@ValueSource(strings = { "123, 456", "123, 789" })
 void test(@SpringConversion List<Integer> ints) {
-	assertThat(ints).containsExactly(123, 456);
+	assertThat(ints).contains(123);
 }
 // --8<-- [end:test]
 // @formatter:on
