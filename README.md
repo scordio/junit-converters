@@ -1,4 +1,4 @@
-# <img src="https://stefano.codes/junit-converters/assets/images/logo.png" align="right" width="100">JUnit Converters [![Maven Central](https://img.shields.io/maven-central/v/io.github.scordio/junit-converters?label=Maven%20Central)](https://mvnrepository.com/artifact/io.github.scordio/junit-converters) [![javadoc](https://javadoc.io/badge2/io.github.scordio/junit-converters/javadoc.svg)](https://javadoc.io/doc/io.github.scordio/junit-converters)
+# <img src="https://stefano.codes/junit-converters/assets/images/logo.png" align="right" width="100">JUnit Converters [![Maven Central](https://img.shields.io/maven-central/v/io.github.scordio/junit-converters?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.scordio/junit-converters) [![javadoc](https://javadoc.io/badge2/io.github.scordio/junit-converters/javadoc.svg)](https://javadoc.io/doc/io.github.scordio/junit-converters)
 
 [![CI](https://github.com/scordio/junit-converters/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/scordio/junit-converters/actions/workflows/main.yml?query=branch%3Amain)
 
