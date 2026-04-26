@@ -28,7 +28,7 @@ class HexArgumentConverter extends TypedArgumentConverter<String, byte[]> {
 	}
 
 	@Override
-	protected byte[] convert(@Nullable String source) throws ArgumentConversionException {
+	protected byte[] convert(@Nullable String source) {
 		Objects.requireNonNull(source, "'null' is not supported");
 
 		String hexString = getHexString(source);

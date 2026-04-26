@@ -246,8 +246,8 @@ class SpringConversionIntegrationTests {
 					return loadedClass;
 				}
 
-				// Find target classes bypassing parent delegation to ensure classes to be
-				// filtered are resolved through this class loader
+				// Find classes in target packages bypassing parent delegation to ensure
+				// classes to be filtered are resolved through this class loader
 				if (TARGET_PACKAGES.stream().anyMatch(name::startsWith)) {
 					return findClass(name);
 				}

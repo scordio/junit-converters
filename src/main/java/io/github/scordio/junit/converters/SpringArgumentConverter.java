@@ -41,15 +41,14 @@ class SpringArgumentConverter implements ArgumentConverter {
 	}
 
 	@Override
-	public @Nullable Object convert(@Nullable Object source, ParameterContext context)
-			throws ArgumentConversionException {
+	public @Nullable Object convert(@Nullable Object source, ParameterContext context) {
 		TypeDescriptor sourceType = TypeDescriptor.forObject(source);
 		TypeDescriptor targetType = new TypeDescriptor(MethodParameter.forParameter(context.getParameter()));
 		return CONVERSION_SERVICE.convert(source, sourceType, targetType);
 	}
 
 	@Override
-	public @Nullable Object convert(@Nullable Object source, FieldContext context) throws ArgumentConversionException {
+	public @Nullable Object convert(@Nullable Object source, FieldContext context) {
 		TypeDescriptor sourceType = TypeDescriptor.forObject(source);
 		TypeDescriptor targetType = new TypeDescriptor(context.getField());
 		return CONVERSION_SERVICE.convert(source, sourceType, targetType);
