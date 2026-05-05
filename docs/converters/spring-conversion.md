@@ -4,7 +4,7 @@ description: An argument converter using Spring Framework type conversion
 
 # `@SpringConversion`
 
-`@SpringConversion` is an annotation that converts instances using the
+`@SpringConversion` is an annotation that converts instances by using the
 [type conversion](https://docs.spring.io/spring-framework/reference/core/validation/convert.html)
 provided by the Spring Framework:
 
