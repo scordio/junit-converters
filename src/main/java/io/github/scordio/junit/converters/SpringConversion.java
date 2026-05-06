@@ -25,15 +25,15 @@ import java.lang.annotation.Target;
 
 /**
  * {@code @SpringConversion} is a {@link ConvertWith} composed annotation that converts
- * arguments using the Spring {@link org.springframework.core.convert.ConversionService
- * conversion service}.
+ * arguments using the Spring
+ * {@linkplain org.springframework.core.convert.ConversionService conversion service}.
  * <p>
  * <strong>Note:</strong> The annotation requires {@code org.springframework:spring-core}
  * available in the test classpath, which is generally the case for Spring applications.
  * <p>
  * If {@code org.springframework:spring-context} is also available in the test classpath,
- * the Spring {@link org.springframework.format.annotation format annotations} are also
- * supported:
+ * the Spring {@linkplain org.springframework.format.annotation format annotations} are
+ * also supported:
  * <ul>
  * <li>{@link org.springframework.format.annotation.NumberFormat @NumberFormat} for
  * formatting {@code Number} values such as {@code Double} and {@code Long}</li>
