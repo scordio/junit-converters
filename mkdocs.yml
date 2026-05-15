@@ -109,6 +109,7 @@ nav:
     - converters/base64.md
     - converters/bytes.md
     - converters/hex.md
+    - converters/method-conversion.md
     - converters/spring-conversion.md
   - javadoc.md
   - release-notes.md
