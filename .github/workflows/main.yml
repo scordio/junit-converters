@@ -79,7 +79,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        spring-framework: [6.2.16]
+        spring-framework: [6.2.19]
     runs-on: ubuntu-latest
 
     steps:
