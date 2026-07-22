@@ -17,7 +17,6 @@ package io.github.scordio.junit.converters;
 
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.extension.ParameterContext;
-import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.converter.ArgumentConverter;
 import org.junit.jupiter.params.support.FieldContext;
 import org.springframework.core.MethodParameter;
