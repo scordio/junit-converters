@@ -43,6 +43,7 @@ The following converters are available:
 * [`@Base64`](converters/base64.md): decodes Base64 instances into byte arrays
 * [`@Bytes`](converters/bytes.md): converts strings or numbers into byte arrays
 * [`@Hex`](converters/hex.md): decodes hexadecimal strings into byte arrays
+* [`@MethodConversion`](converters/method-conversion.md): converts instances by using a convertion method
 * [`@SpringConversion`](converters/spring-conversion.md): converts instances by using the Spring Framework type conversion
 
 Do you have another converter in mind for your use case?
