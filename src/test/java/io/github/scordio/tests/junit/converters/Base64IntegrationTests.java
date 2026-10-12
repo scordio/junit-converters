@@ -115,7 +115,6 @@ class Base64IntegrationTests {
 				.flatMap(TestCase::toArguments);
 		}
 
-		@SuppressWarnings({ "ArrayRecordComponent" })
 		private record TestCase(String actual, byte[] expected) {
 
 			private Stream<Arguments> toArguments() {
@@ -157,7 +156,7 @@ class Base64IntegrationTests {
 		@NullSource
 		@ValueSource(ints = 42)
 		@ValueSource(strings = { " ", "  ", "A", "A=" })
-		void test(@SuppressWarnings("unused") @Base64 byte[] bytes) {
+		void test(@Base64 byte[] ignored) {
 			// never called
 		}
 

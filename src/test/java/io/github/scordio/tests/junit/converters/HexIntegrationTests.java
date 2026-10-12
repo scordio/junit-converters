@@ -65,7 +65,6 @@ class HexIntegrationTests {
 						.flatMap(TestCase::toArguments));
 		}
 
-		@SuppressWarnings({ "ArrayRecordComponent" })
 		private record TestCase(String actual, byte[] expected) {
 
 			private Stream<Arguments> toArguments() {
@@ -114,7 +113,7 @@ class HexIntegrationTests {
 		@NullSource
 		@EmptySource // https://github.com/junit-team/junit-framework/issues/4801
 		@ValueSource(strings = { " ", "A", "  ", "AG", "GG", "AAA", "0x" })
-		void test(@SuppressWarnings("unused") @Hex byte[] bytes) {
+		void test(@Hex byte[] ignored) {
 			// never called
 		}
 

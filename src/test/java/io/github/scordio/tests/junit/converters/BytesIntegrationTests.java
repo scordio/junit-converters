@@ -131,7 +131,7 @@ class BytesIntegrationTests {
 		@ParameterizedTest
 		@NullSource
 		@EmptySource // https://github.com/junit-team/junit-framework/issues/4801
-		void test(@SuppressWarnings("unused") @Bytes byte[] bytes) {
+		void test(@Bytes byte[] ignored) {
 			// never called
 		}
 

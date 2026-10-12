@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
  * Collection of {@link org.junit.jupiter.params.converter.ArgumentConverter argument
  * converters} for JUnit parameterized testing.
@@ -20,7 +21,6 @@
  * @see org.junit.jupiter.params.ParameterizedClass
  * @see org.junit.jupiter.params.ParameterizedTest
  */
-@SuppressWarnings("requires-automatic")
 module io.github.scordio.junit.converters {
 
 	requires static transitive org.jspecify;
