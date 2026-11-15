@@ -15,7 +15,7 @@
  */
 
 /**
- * Collection of {@link org.junit.jupiter.params.converter.ArgumentConverter argument
+ * Collection of {@linkplain org.junit.jupiter.params.converter.ArgumentConverter argument
  * converters} for JUnit parameterized testing.
  *
  * @see org.junit.jupiter.params.ParameterizedClass
