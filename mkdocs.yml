@@ -62,10 +62,6 @@ plugins:
   - social:
       cards_layout: default/variant
 
-# Hooks
-hooks:
-  - hooks/javadoc.py
-
 # Additional configuration
 extra:
   social:
@@ -114,5 +110,5 @@ nav:
     - converters/bytes.md
     - converters/hex.md
     - converters/spring-conversion.md
-  - javadoc.md
-  - release-notes.md
+  - Javadoc: https://stefano.codes/junit-converters/api
+  - Release Notes: https://github.com/scordio/junit-converters/releases
