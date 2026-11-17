@@ -27,10 +27,10 @@ In addition, the Spring
 [format annotations](https://docs.spring.io/spring-framework/reference/core/validation/format.html#format-annotations-api)
 are also supported:
 
-* `@NumberFormat` to format `Number` values such as `Double` and `Long`
-* `@DurationFormat` to format `java.time.Duration` values in ISO-8601 and simplified styles
-* `@DateTimeFormat` to format values such as `java.util.Date`, `java.util.Calendar`, and `Long` (for millisecond
-  timestamps) as well as JSR-310 `java.time` types
+* `@NumberFormat` to parse `String` values into numbers such as `Double` and `Long`
+* `@DurationFormat` to parse `String` values into `java.time.Duration` values in ISO-8601 and simplified styles
+* `@DateTimeFormat` to parse `String` values into date/time types such as `java.util.Date`, `java.util.Calendar`,
+  `Long` (for millisecond timestamps), and JSR-310 `java.time` types
 
 ## Requirements
 

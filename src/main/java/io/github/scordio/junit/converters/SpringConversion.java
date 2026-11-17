@@ -35,14 +35,15 @@ import java.lang.annotation.Target;
  * the Spring {@linkplain org.springframework.format.annotation format annotations} are
  * also supported:
  * <ul>
- * <li>{@link org.springframework.format.annotation.NumberFormat @NumberFormat} for
- * formatting {@code Number} values such as {@code Double} and {@code Long}</li>
- * <li>{@link org.springframework.format.annotation.DurationFormat @DurationFormat} for
- * formatting {@link java.time.Duration} values in ISO-8601 and simplified styles</li>
- * <li>{@link org.springframework.format.annotation.DateTimeFormat @DateTimeFormat} for
- * formatting values such as {@link java.util.Date}, {@link java.util.Calendar}, and
- * {@code Long} (for millisecond timestamps) as well as JSR-310 {@link java.time}
- * types</li>
+ * <li>{@link org.springframework.format.annotation.NumberFormat @NumberFormat} to parse
+ * {@code String} values into numbers such as {@code Double} and {@code Long}</li>
+ * <li>{@link org.springframework.format.annotation.DurationFormat @DurationFormat} to
+ * parse {@code String} values into {@link java.time.Duration} values in ISO-8601 and
+ * simplified styles</li>
+ * <li>{@link org.springframework.format.annotation.DateTimeFormat @DateTimeFormat} to
+ * parse {@code String} values into date/time types such as {@link java.util.Date},
+ * {@link java.util.Calendar}, {@code Long} (for millisecond timestamps), and JSR-310
+ * {@link java.time} types</li>
  * </ul>
  *
  * @see org.springframework.core.convert.ConversionService
