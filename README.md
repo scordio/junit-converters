@@ -8,7 +8,7 @@ This project is a collection of ready-to-use argument converters designed to str
 ## Documentation
 
 - [User Guide](https://stefano.codes/junit-converters/)
-- [Release Notes](https://github.com/scordio/junit-converters/)
+- [Release Notes](https://github.com/scordio/junit-converters/releases)
 
 ## License
 
