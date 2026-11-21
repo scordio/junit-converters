@@ -36,12 +36,12 @@ import java.lang.annotation.Target;
  * also supported:
  * <ul>
  * <li>{@link org.springframework.format.annotation.NumberFormat @NumberFormat} to parse
- * {@code String} values into numbers such as {@code Double} and {@code Long}</li>
+ * number values into types such as {@code Double} and {@code Long}</li>
  * <li>{@link org.springframework.format.annotation.DurationFormat @DurationFormat} to
- * parse {@code String} values into {@link java.time.Duration} values in ISO-8601 and
- * simplified styles</li>
+ * parse ISO-8601 values and simplified duration styles into
+ * {@link java.time.Duration}</li>
  * <li>{@link org.springframework.format.annotation.DateTimeFormat @DateTimeFormat} to
- * parse {@code String} values into date/time types such as {@link java.util.Date},
+ * parse values into date/time types such as {@link java.util.Date},
  * {@link java.util.Calendar}, {@code Long} (for millisecond timestamps), and JSR-310
  * {@link java.time} types</li>
  * </ul>
