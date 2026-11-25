@@ -110,6 +110,7 @@ nav:
     - converters/base64.md
     - converters/bytes.md
     - converters/hex.md
+    - converters/method-conversion.md
     - converters/spring-conversion.md
   - Javadoc: https://stefano.codes/junit-converters/api
   - Release Notes: https://github.com/scordio/junit-converters/releases
